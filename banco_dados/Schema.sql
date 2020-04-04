@@ -8,12 +8,12 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema trabalho1-Saulo-2020-1
 -- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `trabalho1-Saulo-2020-1` ;
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema trabalho1-Saulo-2020-1
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `trabalho1-Saulo-2020-1` DEFAULT CHARACTER SET utf8 ;
 SHOW WARNINGS;
@@ -54,12 +54,12 @@ ENGINE = InnoDB;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `Pededido`
+-- Table `Pedido`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Pededido` ;
+DROP TABLE IF EXISTS `Pedido` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `Pededido` (
+CREATE TABLE IF NOT EXISTS `Pedido` (
   `Id_Ped` INT NOT NULL,
   `Data_Ped` DATETIME NOT NULL,
   `obs_Ped` VARCHAR(255) NOT NULL,
