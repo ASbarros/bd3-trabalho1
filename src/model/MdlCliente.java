@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class MdlCliente {
+
     private int id;
     private String nome;
     private String cpf;
@@ -15,7 +16,7 @@ public class MdlCliente {
     //sem parametros
     public MdlCliente() {
     }
-    
+
     //sem ID
     public MdlCliente(String nome, String cpf, Calendar ultimaCompra) {
         this.nome = nome;
@@ -37,6 +38,27 @@ public class MdlCliente {
         this.cpf = cpf;
         ultimaCompra = Calendar.getInstance();
         ultimaCompra.setTime(UltComp);
+    }
+
+    public static MdlCliente parseCliente(String dados[]) {
+        MdlCliente cliente = new MdlCliente();
+
+        cliente.setId(Integer.parseInt(dados[0]));
+        cliente.setCpf(dados[1]);
+        cliente.setNome(dados[2]);
+        //cliente.setUltimaCompraString(dados[3]);
+
+        return cliente;
+    }
+
+    public String[] toArray() {
+        String dados[] = new String[4];
+        dados[0] = String.valueOf(this.id);
+        dados[1] = this.cpf;
+        dados[2] = this.nome;
+        dados[3] = String.valueOf(this.ultimaCompra);
+
+        return dados;
     }
 
     //get e set
@@ -71,14 +93,15 @@ public class MdlCliente {
     public void setUltimaCompra(Calendar ultimaCompra) {
         this.ultimaCompra = ultimaCompra;
     }
-    
-    public void setUltimaCompraString(String data){
+
+    public void setUltimaCompraString(String data) {
         try {
             SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
             Date novaData = dataFormatada.parse(data);
 
             ultimaCompra.setTime(novaData);
         } catch (ParseException ex) {
+            ultimaCompra = null;
             System.out.println("Erro ao converter a data: " + ex.getMessage());
         }
     }

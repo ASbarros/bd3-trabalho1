@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 
 public class FabricaConexao {
 
-    private static final String STR_DRIVER = "com.mysql.cj.jdbc.Driver";  // definição de qual banco será utilizado
-    private static final String DATABASE = "banco3-saulo-2020-1"; // Nome do banco de dados         
+    private static final String STR_DRIVER = "org.gjt.mm.mysql.Driver";  // definição de qual banco será utilizado
+    private static final String DATABASE = "bancosaulo"; // Nome do banco de dados         
     private static final String IP = "localhost";  // ip de conexao
     private static final String STR_CON = "jdbc:mysql://" + IP + ":3306/" + DATABASE; // string de conexao com o banco de dados
     private static final String USER = "root"; // Nome do usuário

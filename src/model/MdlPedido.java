@@ -39,7 +39,7 @@ public class MdlPedido {
         this.observacao = observacao;
         
         DaoCliente daoCliente = new DaoCliente();
-        this.cliente = daoCliente.Recupera(idCliente);
+        this.cliente = daoCliente.recuperar(idCliente);
         
         DaoVendedor daoVendedor = new DaoVendedor();
         this.vendedor = daoVendedor.Recupera(idVendedor);    
