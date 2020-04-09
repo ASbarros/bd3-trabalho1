@@ -33,12 +33,35 @@ public class MdlVendedorComissao {
         this.id = id;
         this.percentual = percentual;
         this.valor = valor;
-        
+
         DaoVendedor daoVendedor = new DaoVendedor();
         this.vendedor = daoVendedor.recuperar(idVendedor);
-        
+
         DaoPedido daoPedido = new DaoPedido();
-        this.pedido = daoPedido.recuperar( idPedido);
+        this.pedido = daoPedido.recuperar(idPedido);
+    }
+
+    public static MdlVendedorComissao parseVendedorComissao(String dados[]) {
+        MdlVendedorComissao obj = new MdlVendedorComissao();
+
+        obj.setId(Integer.parseInt(dados[0]));
+        obj.setPercentual(Double.parseDouble(dados[1]));
+        obj.setValor(Double.parseDouble(dados[2]));
+        obj.setVendedor(new DaoVendedor().recuperar(Integer.parseInt(dados[3])));
+        obj.setPedido(new DaoPedido().recuperar(Integer.parseInt(dados[4])));
+
+        return obj;
+    }
+
+    public String[] toArray() {
+        String dados[] = new String[5];
+        dados[0] = String.valueOf(this.id);
+        dados[1] = String.valueOf(this.percentual);
+        dados[2] = String.valueOf(this.valor);
+        dados[3] = String.valueOf(this.vendedor.getId());
+        dados[4] = String.valueOf(this.pedido.getId());
+
+        return dados;
     }
 
     public int getId() {

@@ -6,11 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.MdlVendedorComissao;
 
 public class DaoVendedorComissao {
+
     private Connection minhaConexao;
-    private String comandoSQL;
 
     public DaoVendedorComissao() {
         minhaConexao = FabricaConexao.getConexaoPADRAO();
@@ -32,7 +34,7 @@ public class DaoVendedorComissao {
             comandoSQL.setDouble(2, comissao.getValor());
             comandoSQL.setInt(3, comissao.getVendedor().getId());
             comandoSQL.setInt(4, comissao.getPedido().getId());
-           
+
             comandoSQL.executeUpdate();
             comandoSQL.close();
         } catch (SQLException e) {
@@ -82,51 +84,52 @@ public class DaoVendedorComissao {
         excluir(PedProd.getId());
     }
 
-    public ArrayList<MdlVendedorComissao> recuperar(String SQL) {
-        ArrayList<MdlVendedorComissao> listaVendedor = new ArrayList<>();
+    public MdlVendedorComissao recuperar(int index) {
+        String sql = "select id_vendcom, percentual_vendcom, vlrcomissao_vendcom, id_vend_vendcom, id_ped_vendcom from vendedor_comissao where id_vendcom = ?";
 
         try {
-            Statement objSTM = minhaConexao.createStatement();
-            objSTM.executeQuery(SQL);
+            PreparedStatement stp = minhaConexao.prepareStatement(sql);
+            stp.setInt(1, index);
+            ResultSet resultado = stp.executeQuery();
 
-            ResultSet objResultSet = objSTM.getResultSet();
-            while (objResultSet.next()) {
-                
-                int idPedProd = objResultSet.getInt("id_vendcom");   
-                DaoVendedorComissao daoComissao = new DaoVendedorComissao(minhaConexao);
-                MdlVendedorComissao objCliente = daoComissao.Recupera(idPedProd);
-                                
-                int id = objResultSet.getInt("id_vendcom");
-                double percentual = objResultSet.getDouble("percentual_vendcom");
-                double valor = objResultSet.getDouble("vlrcomissao_vendcom");
-                int idVendedor = objResultSet.getInt("id_vend_vendcom");
-                int idPedido = objResultSet.getInt("id_ped_pedprod");
-              
-                MdlVendedorComissao obj = new MdlVendedorComissao(id, percentual, valor, idVendedor, idPedido);
-                                    
-                listaVendedor.add(obj);
+            MdlVendedorComissao obj = new MdlVendedorComissao();
+
+            if (resultado.next()) {
+                obj.setId(Integer.parseInt(resultado.getString("id_vendcom")));
+                obj.setPercentual(resultado.getDouble("percentual_vendcom"));
+                obj.setValor(resultado.getDouble("vlrcomissao_vendcom"));
+                obj.setVendedor(new DaoVendedor().recuperar(resultado.getInt("id_vend_vendcom")));
+                obj.setPedido(new DaoPedido().recuperar(resultado.getInt("id_ped_vendcom")));
             }
+            return obj;
 
-            objResultSet.close();
-            objSTM.close();
-        } catch (NumberFormatException | SQLException erro) {
-            System.err.println("Erro ao Recuperar Objetos pedido produto: " + erro.getMessage());
-           
+        } catch (SQLException ex) {
+            Logger.getLogger(MdlVendedorComissao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listaVendedor;
+        return null;
     }
 
-    public ArrayList<MdlVendedorComissao> recuperaTodos() {
-        return recuperar("select * from vendedor_comissao");
-    }
+    public ArrayList<MdlVendedorComissao> recuperarTodos() {
+        String sql = "select id_vendcom, percentual_vendcom, vlrcomissao_vendcom, id_vend_vendcom, id_ped_vendcom from vendedor_comissao";
+        ArrayList<MdlVendedorComissao> lista = new ArrayList();
+        try {
+            PreparedStatement stp = minhaConexao.prepareStatement(sql);
+            ResultSet resultado = stp.executeQuery();
 
-    public MdlVendedorComissao Recupera(int pk) {
-        ArrayList<MdlVendedorComissao> listaDeContas = recuperar("select * from vendedor_comissao where id_vendcom = " + pk);
-        if (listaDeContas.size() > 0) {
-            return listaDeContas.get(0);
-        } else {
-            return new MdlVendedorComissao();
+            if (resultado.next()) {
+                MdlVendedorComissao obj = new MdlVendedorComissao();
+                obj.setId(Integer.parseInt(resultado.getString("id_vendcom")));
+                obj.setPercentual(resultado.getDouble("percentual_vendcom"));
+                obj.setValor(resultado.getDouble("vlrcomissao_vendcom"));
+                obj.setVendedor(new DaoVendedor().recuperar(resultado.getInt("id_vend_vendcom")));
+                obj.setPedido(new DaoPedido().recuperar(resultado.getInt("id_ped_vendcom")));
+                lista.add(obj);
+            }
+            return lista;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MdlVendedorComissao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 }
-

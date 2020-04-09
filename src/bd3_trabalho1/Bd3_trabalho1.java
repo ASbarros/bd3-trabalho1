@@ -10,6 +10,7 @@ import control.CntlPedido;
 import control.CntlPedidoProduto;
 import control.CntlProduto;
 import control.CntlVendedor;
+import control.CntlVendedorComissao;
 import java.util.Date;
 
 public class Bd3_trabalho1 {
@@ -22,15 +23,15 @@ public class Bd3_trabalho1 {
         String dados[] = new String[6];
         String dados2[][] = new String[2][6];
         dados[0] = "1";
-        dados[1] = "2.3";
-        dados[2] = "5";
-        dados[3] = "6";
+        dados[1] = "0.10";
+        dados[2] = "60";
+        dados[3] = "1";
         dados[4] = "1";
-        dados[5] = "1";
 
-        CntlPedidoProduto.salvar(dados);
-        String d[] = CntlPedidoProduto.recuperar(1);
-        dados2 = CntlPedidoProduto.recuperarTodos();
+        CntlVendedorComissao.salvar(dados);
+
+        String d[] = CntlVendedorComissao.recuperar(1);
+        dados2 = CntlVendedorComissao.recuperarTodos();
         System.out.println(dados2[0][2]);
         System.out.println(d[1]);
         System.out.println("termino");
