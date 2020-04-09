@@ -5,12 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.MdlProdutoMovimento;
 
 public class DaoProdutoMovimento {
     private Connection minhaConexao;
-    private String comandoSQL;
 
     public DaoProdutoMovimento() {
         minhaConexao = FabricaConexao.getConexaoPADRAO();
@@ -30,7 +33,7 @@ public class DaoProdutoMovimento {
 
             
             comandoSQL.setString(1, movimento.getTipo());
-            comandoSQL.setDate(2, new java.sql.Date(movimento.getData().getTime().getTime()));
+            comandoSQL.setDate(2, new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(movimento.getData()).getTime()));
             comandoSQL.setString(3, movimento.getDescricao());
             comandoSQL.setInt(4, movimento.getProduto().getId());
             
@@ -38,6 +41,8 @@ public class DaoProdutoMovimento {
             comandoSQL.close();
         } catch (SQLException e) {
             System.err.println("Erro ao incluir produto movimento: " + e.getMessage());
+        } catch (ParseException ex) {
+            Logger.getLogger(DaoProdutoMovimento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -50,7 +55,7 @@ public class DaoProdutoMovimento {
             comandoSQL = minhaConexao.prepareStatement(sql);
 
             comandoSQL.setString(1, movimento.getTipo());
-            comandoSQL.setDate(2, new java.sql.Date(movimento.getData().getTime().getTime()));
+            comandoSQL.setDate(2, new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(movimento.getData()).getTime()));
             comandoSQL.setString(3, movimento.getDescricao());
             comandoSQL.setInt(4, movimento.getProduto().getId());
             comandoSQL.setInt(5, movimento.getId());
@@ -59,6 +64,8 @@ public class DaoProdutoMovimento {
             comandoSQL.close();
         } catch (SQLException e) {
             System.err.println("Erro ao atualizar produto movimento: " + e.getMessage());
+        } catch (ParseException ex) {
+            Logger.getLogger(DaoProdutoMovimento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -82,51 +89,53 @@ public class DaoProdutoMovimento {
     public void excluir(MdlProdutoMovimento movimento) {
         excluir(movimento.getId());
     }
-
-    public ArrayList<MdlProdutoMovimento> recuperar(String SQL) {
-        ArrayList<MdlProdutoMovimento> listaMovimento = new ArrayList<>();
+     public MdlProdutoMovimento recuperar(int index) {
+        String sql = "select id_prodmov, tipo_prodmov, data_prodmov, descricao_prodmov, id_prod_prodmov from produto_movimento where id_prodmov = ?";
 
         try {
-            Statement objSTM = minhaConexao.createStatement();
-            objSTM.executeQuery(SQL);
+            PreparedStatement stp = minhaConexao.prepareStatement(sql);
+            stp.setInt(1, index);
+            ResultSet resultado = stp.executeQuery();
 
-            ResultSet objResultSet = objSTM.getResultSet();
-            while (objResultSet.next()) {
-                            
-                int idMovimento = objResultSet.getInt("id_prodmov");   
-                DaoProdutoMovimento daoMovimento = new DaoProdutoMovimento(minhaConexao);
-                MdlProdutoMovimento objMovimento = daoMovimento.Recupera(idMovimento);
-                
-                int id = objResultSet.getInt("id_prodmov");
-                String tipo = objResultSet.getString("tipo_prodmov");
-                java.util.Date data = objResultSet.getDate("data_prodmov");
-                String descricao = objResultSet.getString("descricao_prodmov");
-                int idProduto = objResultSet.getInt("id_prod_prodmov");
-                
-                MdlProdutoMovimento obj = new MdlProdutoMovimento(id, tipo, data, descricao, idProduto);
-                                    
-                listaMovimento.add(obj);
+            MdlProdutoMovimento obj = new MdlProdutoMovimento();
+
+            if (resultado.next()) {
+                obj.setId(resultado.getInt("id_prodmov"));
+                obj.setTipo(resultado.getString("tipo_prodmov"));
+                obj.setData(resultado.getDate("data_prodmov"));
+                obj.setDescricao(resultado.getString("descricao_prodmov"));
+                obj.setProduto(new DaoProduto().recuperar(resultado.getInt("id_prod_prodmov")));
             }
+            return obj;
 
-            objResultSet.close();
-            objSTM.close();
-        } catch (NumberFormatException | SQLException erro) {
-            System.err.println("Erro ao Recuperar Objetos produto movimento: " + erro.getMessage());
-           
+        } catch (SQLException ex) {
+            Logger.getLogger(MdlProdutoMovimento.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listaMovimento;
+        return null;
     }
 
-    public ArrayList<MdlProdutoMovimento> recuperaTodos() {
-        return recuperar("select * from produto_movimento");
-    }
+    public ArrayList<MdlProdutoMovimento> recuperarTodos() {
+        String sql = "select id_prodmov, tipo_prodmov, data_prodmov, descricao_prodmov, id_prod_prodmov from produto_movimento";
+        ArrayList<MdlProdutoMovimento> lista = new ArrayList();
+        try {
+            PreparedStatement stp = minhaConexao.prepareStatement(sql);
+            ResultSet resultado = stp.executeQuery();
 
-    public MdlProdutoMovimento Recupera(int pk) {
-        ArrayList<MdlProdutoMovimento> listaPedidos = recuperar("select * from produto_movimento where id_prodmov = " + pk);
-        if (listaPedidos.size() > 0) {
-            return listaPedidos.get(0);
-        } else {
-            return new MdlProdutoMovimento();
+            if (resultado.next()) {
+                MdlProdutoMovimento obj = new MdlProdutoMovimento();
+                obj.setId(resultado.getInt("id_prodmov"));
+                obj.setTipo(resultado.getString("tipo_prodmov"));
+                obj.setData(resultado.getDate("data_prodmov"));
+                obj.setDescricao(resultado.getString("descricao_prodmov"));
+                obj.setProduto(new DaoProduto().recuperar(resultado.getInt("id_prod_prodmov")));
+
+                lista.add(obj);
+            }
+            return lista;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MdlProdutoMovimento.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 }
