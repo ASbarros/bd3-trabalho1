@@ -38,7 +38,7 @@ public class MdlPedidoProduto {
         this.total = total;
         
         DaoProduto daoProduto = new DaoProduto();
-        this.produto = daoProduto.Recupera(idProduto);
+        this.produto = daoProduto.recuperar(idProduto);
         
         DaoPedido daopedido = new DaoPedido();
         this.pedido = daopedido.Recupera(idPedido);

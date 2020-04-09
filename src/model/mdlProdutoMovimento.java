@@ -40,7 +40,7 @@ public class MdlProdutoMovimento {
         this.descricao = descricao;
         
         DaoProduto daoProduto = new DaoProduto();
-        this.produto = daoProduto.Recupera(idProduto);
+        this.produto = daoProduto.recuperar(idProduto);
     }
 
     public int getId() {

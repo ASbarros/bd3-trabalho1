@@ -83,53 +83,6 @@ public class DaoCliente {
         excluir(cliente.getId());
     }
 
-    /*
-    public ArrayList<MdlCliente> recuperar(String SQL) {
-        ArrayList<MdlCliente> listaCliente = new ArrayList<>();
-
-        try {
-            Statement objSTM = minhaConexao.createStatement();
-            objSTM.executeQuery(SQL);
-
-            ResultSet objResultSet = objSTM.getResultSet();
-            while (objResultSet.next()) {
-
-                int idCliente = objResultSet.getInt("id_cli");
-                DaoCliente daoCliente = new DaoCliente(minhaConexao);
-                MdlCliente objCliente = daoCliente.Recupera(idCliente);
-
-                int id = objResultSet.getInt("id_cli");
-                String nome = objResultSet.getString("nome_cli");
-                String cpf = objResultSet.getString("cpf_cli");
-                java.util.Date ultComp = objResultSet.getDate("data");
-
-                MdlCliente obj = new MdlCliente(id, nome, cpf, ultComp);
-
-                listaCliente.add(obj);
-            }
-
-            objResultSet.close();
-            objSTM.close();
-        } catch (NumberFormatException | SQLException erro) {
-            System.err.println("Erro ao Recuperar Objetos cliente: " + erro.getMessage());
-
-        }
-        return listaCliente;
-    }
-
-    public ArrayList<MdlCliente> recuperaTodos() {
-        return recuperar("select * from cliente");
-    }
-
-    public MdlCliente Recupera(int pk) {
-        ArrayList<MdlCliente> listaDeContas = recuperar("select * from Cliente where id_cli = " + pk);
-        if (listaDeContas.size() > 0) {
-            return listaDeContas.get(0);
-        } else {
-            return new MdlCliente();
-        }
-    }
-     */
     public MdlCliente recuperar(int index) {
         String sql = "select id_cli, nome_cli, cpf_cli, ultcomp_cli from cliente where id_cli = ?";
 

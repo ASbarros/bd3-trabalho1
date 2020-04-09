@@ -1,6 +1,7 @@
 package model;
 
 public class MdlProduto {
+
     private int id;
     private String descricao;
     private double saldo;
@@ -23,6 +24,28 @@ public class MdlProduto {
         this.saldo = saldo;
         this.unidade = unidade;
         this.valor = valor;
+    }
+
+    public static MdlProduto parseProduto(String dados[]) {
+        MdlProduto produto = new MdlProduto();
+
+        produto.setId(Integer.parseInt(dados[0]));
+        produto.setDescricao(dados[1]);
+        produto.setSaldo(Double.parseDouble(dados[2]));
+        produto.setUnidade(dados[3]);
+        produto.setValor(Double.parseDouble(dados[4]));
+
+        return produto;
+    }
+
+    public String[] toArray() {
+        String dados[] = new String[4];
+        dados[0] = String.valueOf(this.id);
+        dados[1] = this.descricao;
+        dados[2] = String.valueOf(this.saldo);
+        dados[3] = this.unidade;
+
+        return dados;
     }
 
     public int getId() {
@@ -64,7 +87,5 @@ public class MdlProduto {
     public void setValor(double valor) {
         this.valor = valor;
     }
-    
-    
-    
+
 }

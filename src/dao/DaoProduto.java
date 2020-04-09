@@ -6,12 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.MdlProduto;
 
 public class DaoProduto {
-    
+
     private Connection minhaConexao;
-    private String comandoSQL;
 
     public DaoProduto() {
         minhaConexao = FabricaConexao.getConexaoPADRAO();
@@ -25,7 +26,7 @@ public class DaoProduto {
         PreparedStatement comandoSQL;
 
         String sql = "insert into produto (descricao_prod, saldo_prod, unidade_prod, valor_prod) values (?,?,?,?);";
-
+        System.out.println(produto.getUnidade());
         try {
             comandoSQL = minhaConexao.prepareStatement(sql);
 
@@ -33,7 +34,7 @@ public class DaoProduto {
             comandoSQL.setDouble(2, produto.getSaldo());
             comandoSQL.setString(3, produto.getUnidade());
             comandoSQL.setDouble(4, produto.getValor());
-            
+
             comandoSQL.executeUpdate();
             comandoSQL.close();
         } catch (SQLException e) {
@@ -54,7 +55,7 @@ public class DaoProduto {
             comandoSQL.setString(3, produto.getUnidade());
             comandoSQL.setDouble(4, produto.getValor());
             comandoSQL.setInt(5, produto.getId());
-            
+
             comandoSQL.executeUpdate();
             comandoSQL.close();
         } catch (SQLException e) {
@@ -83,50 +84,53 @@ public class DaoProduto {
         excluir(produto.getId());
     }
 
-    public ArrayList<MdlProduto> recuperar(String SQL){
-        ArrayList<MdlProduto> listaProduto = new ArrayList<>();
+    public MdlProduto recuperar(int index) {
+        String sql = "select id_prod, descricao_prod, saldo_prod, unidade_prod, valor_prod from produto where id_prod = ?";
 
         try {
-            Statement objSTM = minhaConexao.createStatement();
-            objSTM.executeQuery(SQL);
+            PreparedStatement stp = minhaConexao.prepareStatement(sql);
+            stp.setInt(1, index);
+            ResultSet resultado = stp.executeQuery();
 
-            ResultSet objResultSet = objSTM.getResultSet();
-            while (objResultSet.next()) {
-                            
-                int idProduto = objResultSet.getInt("id_prod");   
-                DaoProduto daoProduto = new DaoProduto(minhaConexao);
-                MdlProduto objProduto = daoProduto.Recupera(idProduto);
-                
-                int id = objResultSet.getInt("id_prod");
-                String descricao = objResultSet.getString("descricao_prod");
-                double saldo = objResultSet.getDouble("saldo_prod");
-                String unidade = objResultSet.getString("unidade_prod");
-                double valor = objResultSet.getDouble("valor_prod");
-              
-                MdlProduto obj = new MdlProduto(id, descricao, saldo, unidade, valor);
-                                    
-                listaProduto.add(obj);
+            MdlProduto obj = new MdlProduto();
+
+            if (resultado.next()) {
+                obj.setId(Integer.parseInt(resultado.getString("id_prod")));
+                obj.setDescricao(resultado.getString("descricao_prod"));
+                obj.setSaldo(resultado.getDouble("saldo_prod"));
+                obj.setUnidade(resultado.getString("unidade_prod"));
+                obj.setValor(Double.parseDouble(resultado.getString("valor_prod")));
+
             }
+            return obj;
 
-            objResultSet.close();
-            objSTM.close();
-        } catch (NumberFormatException | SQLException erro) {
-            System.err.println("Erro ao Recuperar Objetos cliente: " + erro.getMessage());
-           
+        } catch (SQLException ex) {
+            Logger.getLogger(MdlProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listaProduto;
+        return null;
     }
 
-    public ArrayList<MdlProduto> recuperaTodos() {
-        return recuperar("select * from produto");
-    }
+    public ArrayList<MdlProduto> recuperarTodos() {
+        String sql = "select id_prod, descricao_prod, saldo_prod, unidade_prod, valor_prod from produto";
+        ArrayList<MdlProduto> lista = new ArrayList();
+        try {
+            PreparedStatement stp = minhaConexao.prepareStatement(sql);
+            ResultSet resultado = stp.executeQuery();
 
-    public MdlProduto Recupera(int pk) {
-        ArrayList<MdlProduto> listaDeContas = recuperar("select * from produto where id_prod = " + pk);
-        if (listaDeContas.size() > 0) {
-            return listaDeContas.get(0);
-        } else {
-            return new MdlProduto();
+            if (resultado.next()) {
+                MdlProduto obj = new MdlProduto();
+                obj.setId(Integer.parseInt(resultado.getString("id_prod")));
+                obj.setDescricao(resultado.getString("descricao_prod"));
+                obj.setSaldo(resultado.getDouble("saldo_prod"));
+                obj.setUnidade(resultado.getString("unidade_prod"));
+                obj.setValor(resultado.getDouble("valor_prod"));
+                lista.add(obj);
+            }
+            return lista;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MdlProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 }
