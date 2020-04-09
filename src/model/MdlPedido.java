@@ -42,7 +42,7 @@ public class MdlPedido {
         this.cliente = daoCliente.recuperar(idCliente);
         
         DaoVendedor daoVendedor = new DaoVendedor();
-        this.vendedor = daoVendedor.Recupera(idVendedor);    
+        this.vendedor = daoVendedor.recuperar(idVendedor);    
     }
 
     public int getId() {

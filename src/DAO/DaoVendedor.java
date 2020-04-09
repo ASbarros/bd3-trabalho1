@@ -6,11 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.MdlVendedor;
 
 public class DaoVendedor {
     private Connection minhaConexao;
-    private String comandoSQL;
 
     public DaoVendedor() {
         minhaConexao = FabricaConexao.getConexaoPADRAO();
@@ -78,48 +79,48 @@ public class DaoVendedor {
         excluir(vendedor.getId());
     }
 
-    public ArrayList<MdlVendedor> recuperar(String SQL) {
-        ArrayList<MdlVendedor> listaCliente = new ArrayList<>();
+     public MdlVendedor recuperar(int index) {
+        String sql = "select id_vend, nome_vend, percentual_vend from vendedor where id_vend = ?";
 
         try {
-            Statement objSTM = minhaConexao.createStatement();
-            objSTM.executeQuery(SQL);
+            PreparedStatement stp = minhaConexao.prepareStatement(sql);
+            stp.setInt(1, index);
+            ResultSet resultado = stp.executeQuery();
 
-            ResultSet objResultSet = objSTM.getResultSet();
-            while (objResultSet.next()) {
-                            
-                int idVendedor = objResultSet.getInt("id_vend");   
-                DaoVendedor daoVendedor = new DaoVendedor(minhaConexao);
-                MdlVendedor objVendedor = daoVendedor.Recupera(idVendedor);
-                                
-                int id = objResultSet.getInt("id_vend");
-                String nome = objResultSet.getString("nome_vend");
-                double percentual = objResultSet.getDouble("percentual_vend");
-              
-                MdlVendedor obj = new MdlVendedor(id, nome, percentual);
-                                    
-                listaCliente.add(obj);
+            MdlVendedor obj = new MdlVendedor();
+
+            if (resultado.next()) {
+                obj.setId(Integer.parseInt(resultado.getString("id_vend")));
+                obj.setNome(resultado.getString("nome_vend"));
+                obj.setPercentual(resultado.getDouble("percentual_vend"));
             }
+            return obj;
 
-            objResultSet.close();
-            objSTM.close();
-        } catch (NumberFormatException | SQLException erro) {
-            System.err.println("Erro ao Recuperar Objetos vend: " + erro.getMessage());
-           
+        } catch (SQLException ex) {
+            Logger.getLogger(MdlVendedor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listaCliente;
+        return null;
     }
 
-    public ArrayList<MdlVendedor> recuperaTodos() {
-        return recuperar("select * from vendedor");
-    }
+    public ArrayList<MdlVendedor> recuperarTodos() {
+        String sql = "select id_vend, nome_vend, percentual_vend from vendedor";
+        ArrayList<MdlVendedor> lista = new ArrayList();
+        try {
+            PreparedStatement stp = minhaConexao.prepareStatement(sql);
+            ResultSet resultado = stp.executeQuery();
 
-    public MdlVendedor Recupera(int pk) {
-        ArrayList<MdlVendedor> listaDeContas = recuperar("select * from vendedor where id_vend = " + pk);
-        if (listaDeContas.size() > 0) {
-            return listaDeContas.get(0);
-        } else {
-            return new MdlVendedor();
+            if (resultado.next()) {
+                MdlVendedor obj = new MdlVendedor();
+                obj.setId(Integer.parseInt(resultado.getString("id_vend")));
+                obj.setNome(resultado.getString("nome_vend"));
+                obj.setPercentual(resultado.getDouble("percentual_vend"));
+                lista.add(obj);
+            }
+            return lista;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MdlVendedor.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 }

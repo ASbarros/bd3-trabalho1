@@ -35,7 +35,7 @@ public class MdlVendedorComissao {
         this.valor = valor;
         
         DaoVendedor daoVendedor = new DaoVendedor();
-        this.vendedor = daoVendedor.Recupera(idVendedor);
+        this.vendedor = daoVendedor.recuperar(idVendedor);
         
         DaoPedido daoPedido = new DaoPedido();
         this.pedido = daoPedido.Recupera(idPedido);

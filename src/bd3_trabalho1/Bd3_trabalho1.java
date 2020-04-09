@@ -7,6 +7,7 @@ package bd3_trabalho1;
 
 import control.CntlCliente;
 import control.CntlProduto;
+import control.CntlVendedor;
 
 /**
  *
@@ -22,15 +23,15 @@ public class Bd3_trabalho1 {
         String dados[] = new String[5];
         String dados2[][] = new String[2][5];
         dados[0] = "1";
-        dados[1] = "acucar";
-        dados[2] = "15";
+        dados[1] = "anderson";
+        dados[2] = "0.25";
         dados[3] = "kg";
         dados[4] = "0.10";
 
-        CntlProduto.salvar(dados);
-        String d[] = CntlProduto.recuperar(1);
-        dados2 = CntlProduto.recuperarTodos();
-        System.out.println(dados2[0][3]);
+        CntlVendedor.salvar(dados);
+        String d[] = CntlVendedor.recuperar(1);
+        dados2 = CntlVendedor.recuperarTodos();
+        System.out.println(dados2[0][2]);
         System.out.println(d[1]);
         System.out.println("termino");
     }
