@@ -7,6 +7,7 @@ package bd3_trabalho1;
 
 import control.CntlCliente;
 import control.CntlPedido;
+import control.CntlPedidoProduto;
 import control.CntlProduto;
 import control.CntlVendedor;
 import java.util.Date;
@@ -18,17 +19,18 @@ public class Bd3_trabalho1 {
      */
     public static void main(String[] args) {
         System.out.println("init");
-        String dados[] = new String[5];
-        String dados2[][] = new String[2][5];
+        String dados[] = new String[6];
+        String dados2[][] = new String[2][6];
         dados[0] = "1";
-        dados[1] = "09/04/2020 14:32:05";
-        dados[2] = "ola2";
-        dados[3] = "1";
+        dados[1] = "2.3";
+        dados[2] = "5";
+        dados[3] = "6";
         dados[4] = "1";
+        dados[5] = "1";
 
-        CntlPedido.salvar(dados);
-        String d[] = CntlPedido.recuperar(1);
-        dados2 = CntlPedido.recuperarTodos();
+        CntlPedidoProduto.salvar(dados);
+        String d[] = CntlPedidoProduto.recuperar(1);
+        dados2 = CntlPedidoProduto.recuperarTodos();
         System.out.println(dados2[0][2]);
         System.out.println(d[1]);
         System.out.println("termino");

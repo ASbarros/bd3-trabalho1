@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.MdlPedido;
 
 public class CntlPedido {
- public static void salvar(String dados[]) {
+    public static void salvar(String dados[]) {
         MdlPedido pedido = MdlPedido.parsePedido(dados);
         DaoPedido dao = new DaoPedido();
 
