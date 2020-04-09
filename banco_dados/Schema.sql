@@ -17,7 +17,8 @@ DROP SCHEMA IF EXISTS `trabalho1-Saulo-2020-1` ;
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `trabalho1-Saulo-2020-1` DEFAULT CHARACTER SET utf8 ;
 SHOW WARNINGS;
-USE `trabalho1-Saulo-2020-1` ;
+USE `trabalho1-Saulo-2020-1`;
+
 
 -- -----------------------------------------------------
 -- Table `Cliente`
@@ -26,63 +27,10 @@ DROP TABLE IF EXISTS `Cliente` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `Cliente` (
-  `Id_Cli` INT NOT NULL,
+  `Id_Cli` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `Nome_Cli` VARCHAR(45) NOT NULL,
   `CPF_Cli` VARCHAR(14) NOT NULL,
-  `UltComp_Cli` DATE NULL,
-  PRIMARY KEY (`Id_Cli`))
-ENGINE = InnoDB;
-
-SHOW WARNINGS;
-
--- -----------------------------------------------------
--- Table `PedProd`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `PedProd` ;
-
-SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `PedProd` (
-  `Id_PedProd` INT NOT NULL,
-  `Qtd_PedProd` DECIMAL(18,2) NOT NULL,
-  `Valor_PedProd` DECIMAL(18,2) NOT NULL,
-  `VTotal_PedProd` DECIMAL(18,2) NOT NULL,
-  `id_prod_PedProd` INT NOT NULL,
-  `id_ped_PedProd` INT NOT NULL,
-  PRIMARY KEY (`Id_PedProd`))
-ENGINE = InnoDB;
-
-SHOW WARNINGS;
-
--- -----------------------------------------------------
--- Table `Pedido`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Pedido` ;
-
-SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `Pedido` (
-  `Id_Ped` INT NOT NULL,
-  `Data_Ped` DATETIME NOT NULL,
-  `obs_Ped` VARCHAR(255) NOT NULL,
-  `Id_Ved_Ped` INT NOT NULL,
-  `Id_Cli_Ped` INT NOT NULL,
-  PRIMARY KEY (`Id_Ped`))
-ENGINE = InnoDB;
-
-SHOW WARNINGS;
-
--- -----------------------------------------------------
--- Table `ProdMov`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ProdMov` ;
-
-SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `ProdMov` (
-  `Id_ProdMov` INT NOT NULL AUTO_INCREMENT,
-  `Tipo_ProdMov` VARCHAR(1) NOT NULL,
-  `Data_ProdMov` DATETIME NOT NULL,
-  `Descricao_ProdMov` VARCHAR(45) NULL,
-  `IdProd_ProdMov` INT NOT NULL,
-  PRIMARY KEY (`Id_ProdMov`))
+  `UltComp_Cli` DATE
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -94,47 +42,80 @@ DROP TABLE IF EXISTS `Produto` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `Produto` (
-  `Id_Prod` INT NOT NULL,
+  `Id_Prod` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `Descricao_Prod` VARCHAR(45) NOT NULL,
   `Saldo_Prod` DECIMAL(12,2) NOT NULL,
-  `Unidade_Prod` VARCHAR(2) NOT NULL,
-  PRIMARY KEY (`Id_Prod`))
+  `Unidade_Prod` VARCHAR(2) NOT NULL
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `VedCom`
+-- Table `Vendedor`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `VedCom` ;
+DROP TABLE IF EXISTS `Vendedor` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `VedCom` (
-  `Id_VedCom` INT NOT NULL,
-  `Percentual_VedCom` DECIMAL(3,2) NOT NULL,
-  `Valor_VedCom` DECIMAL(18,2) NOT NULL,
-  `Id_Ped_VedCom` INT NOT NULL,
-  `Id_Ved_VedCom` INT NOT NULL,
-  PRIMARY KEY (`Id_VedCom`))
+CREATE TABLE IF NOT EXISTS `Vendedor` (
+  `Id_Vend` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `Nome_Vend` VARCHAR(45) NOT NULL,
+  `Percentual_Vend` DECIMAL(3,2) NOT NULL
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `Vedendor`
+-- Table `PRODUTO_MOVIMENTO`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Vedendor` ;
+DROP TABLE IF EXISTS `PRODUTO_MOVIMENTO` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `Vedendor` (
-  `Id_Ved` INT NOT NULL,
-  `Nome_Ved` VARCHAR(45) NOT NULL,
-  `Percentual_Ved` DECIMAL(3,2) NOT NULL,
-  PRIMARY KEY (`Id_Ved`))
+CREATE TABLE IF NOT EXISTS `PRODUTO_MOVIMENTO` (
+  `Id_ProdMov` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  `Tipo_ProdMov` VARCHAR(1) NOT NULL,
+  `Data_ProdMov` DATETIME NOT NULL,
+  `Descricao_ProdMov` VARCHAR(45) NULL,
+  `IdProd_ProdMov` INT NOT NULL,
+
+  CONSTRAINT FK_Produto FOREIGN KEY (IdProd_ProdMov) REFERENCES Produto(Id_Prod)
+
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+-- -----------------------------------------------------
+-- Table `Vendedor_Comissao`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Vendedor_Comissao` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `Vendedor_Comissao` (
+  `Id_VendCom` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `Percentual_VendCom` DECIMAL(3,2) NOT NULL,
+  `Valor_VendCom` DECIMAL(18,2) NOT NULL,
+  `Id_Ped_VendCom` INT NOT NULL,
+  `Id_Vend_VendCom` INT NOT NULL,
+
+  CONSTRAINT FK_Vend FOREIGN KEY (Id_Vend) REFERENCES TBL_VENDEDOR(Id_Vend_VendCom),
+  CONSTRAINT FK_Ped FOREIGN KEY (Id_Ped) REFERENCES TBL_PEDIDO(Id_Ped_VendCom)
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `Pedido`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Pedido` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `Pedido` (
+  `Id_Ped` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `Data_Ped` DATETIME NOT NULL,
+  `obs_Ped` VARCHAR(255) NOT NULL,
+  `Id_Ved_Ped` INT NOT NULL,
+  `Id_Cli_Ped` INT NOT NULL,
+  
+  
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
