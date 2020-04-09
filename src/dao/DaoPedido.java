@@ -1,17 +1,22 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.MdlCliente;
 import model.MdlPedido;
 
 public class DaoPedido {
-    
+
     private Connection minhaConexao;
-    private String comandoSQL;
 
     public DaoPedido() {
         minhaConexao = FabricaConexao.getConexaoPADRAO();
@@ -23,22 +28,21 @@ public class DaoPedido {
 
     public void inserir(MdlPedido pedido) {
         PreparedStatement comandoSQL;
-
         String sql = "insert into pedido (data_ped, observacao_pedido, id_cli_ped, id_vend_ped) values (?, ?, ?, ?)";
 
         try {
             comandoSQL = minhaConexao.prepareStatement(sql);
-
-            
-            comandoSQL.setDate(1, new java.sql.Date(pedido.getData().getTime().getTime()));
+            comandoSQL.setDate(1, new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(pedido.getData()).getTime()));
             comandoSQL.setString(2, pedido.getObservacao());
             comandoSQL.setInt(3, pedido.getCliente().getId());
             comandoSQL.setInt(4, pedido.getVendedor().getId());
-            
+
             comandoSQL.executeUpdate();
             comandoSQL.close();
         } catch (SQLException e) {
             System.err.println("Erro ao incluir pedido: " + e.getMessage());
+        } catch (ParseException ex) {
+            Logger.getLogger(DaoPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -50,7 +54,7 @@ public class DaoPedido {
         try {
             comandoSQL = minhaConexao.prepareStatement(sql);
 
-            comandoSQL.setDate(1, new java.sql.Date(pedido.getData().getTime().getTime()));
+            comandoSQL.setDate(1, new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(pedido.getData()).getTime()));
             comandoSQL.setString(2, pedido.getObservacao());
             comandoSQL.setInt(3, pedido.getCliente().getId());
             comandoSQL.setInt(4, pedido.getVendedor().getId());
@@ -60,6 +64,8 @@ public class DaoPedido {
             comandoSQL.close();
         } catch (SQLException e) {
             System.err.println("Erro ao atualizar pedido: " + e.getMessage());
+        } catch (ParseException ex) {
+            Logger.getLogger(DaoPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -84,50 +90,53 @@ public class DaoPedido {
         excluir(pedido.getId());
     }
 
-    public ArrayList<MdlPedido> recuperar(String SQL) {
-        ArrayList<MdlPedido> listaCliente = new ArrayList<>();
+    public MdlPedido recuperar(int index) {
+        String sql = "select id_ped, data_ped, observacao_pedido, id_cli_ped, id_vend_ped from pedido where id_ped = ?";
 
         try {
-            Statement objSTM = minhaConexao.createStatement();
-            objSTM.executeQuery(SQL);
+            PreparedStatement stp = minhaConexao.prepareStatement(sql);
+            stp.setInt(1, index);
+            ResultSet resultado = stp.executeQuery();
 
-            ResultSet objResultSet = objSTM.getResultSet();
-            while (objResultSet.next()) {
-                            
-                int idPedido = objResultSet.getInt("id_ped");   
-                DaoPedido daoPedido = new DaoPedido(minhaConexao);
-                MdlPedido objpedido = daoPedido.Recupera(idPedido);
-                
-                int id = objResultSet.getInt("id_ped");
-                java.util.Date data = objResultSet.getDate("data_ped");
-                String observacao = objResultSet.getString("observacao_pedido");
-                int id_cliente = objResultSet.getInt("id_cli_ped");
-                int id_pedido = objResultSet.getInt("id_vend_ped");
-                
-                MdlPedido obj = new MdlPedido(id, data, observacao, id_cliente, id_pedido);
-                                    
-                listaCliente.add(obj);
+            MdlPedido obj = new MdlPedido();
+
+            if (resultado.next()) {
+                obj.setId(Integer.parseInt(resultado.getString("id_ped")));
+                obj.setData(resultado.getDate("data_ped"));
+                obj.setObservacao(resultado.getString("observacao_pedido"));
+                obj.setCliente(new DaoCliente().recuperar(resultado.getInt("id_cli_ped")));
+                obj.setVendedor(new DaoVendedor().recuperar(resultado.getInt("id_vend_ped")));
+
             }
+            return obj;
 
-            objResultSet.close();
-            objSTM.close();
-        } catch (NumberFormatException | SQLException erro) {
-            System.err.println("Erro ao Recuperar Objetos pedido: " + erro.getMessage());
-           
+        } catch (SQLException ex) {
+            Logger.getLogger(MdlPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listaCliente;
+        return null;
     }
 
-    public ArrayList<MdlPedido> recuperaTodos() {
-        return recuperar("select * from pedido");
-    }
+    public ArrayList<MdlPedido> recuperarTodos() {
+        String sql = "select id_ped, data_ped, observacao_pedido, id_cli_ped, id_vend_ped from pedido";
+        ArrayList<MdlPedido> lista = new ArrayList();
+        try {
+            PreparedStatement stp = minhaConexao.prepareStatement(sql);
+            ResultSet resultado = stp.executeQuery();
 
-    public MdlPedido Recupera(int pk) {
-        ArrayList<MdlPedido> listaPedidos = recuperar("select * from pedido where id_ped = " + pk);
-        if (listaPedidos.size() > 0) {
-            return listaPedidos.get(0);
-        } else {
-            return new MdlPedido();
+            if (resultado.next()) {
+                MdlPedido obj = new MdlPedido();
+                obj.setId(Integer.parseInt(resultado.getString("id_ped")));
+                obj.setData(resultado.getDate("data_ped"));
+                obj.setObservacao(resultado.getString("observacao_pedido"));
+                obj.setCliente(new DaoCliente().recuperar(resultado.getInt("id_cli_ped")));
+                obj.setVendedor(new DaoVendedor().recuperar(resultado.getInt("id_vend_ped")));
+                lista.add(obj);
+            }
+            return lista;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MdlPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 }

@@ -6,13 +6,11 @@
 package bd3_trabalho1;
 
 import control.CntlCliente;
+import control.CntlPedido;
 import control.CntlProduto;
 import control.CntlVendedor;
+import java.util.Date;
 
-/**
- *
- * @author hetikos
- */
 public class Bd3_trabalho1 {
 
     /**
@@ -23,14 +21,14 @@ public class Bd3_trabalho1 {
         String dados[] = new String[5];
         String dados2[][] = new String[2][5];
         dados[0] = "1";
-        dados[1] = "anderson";
-        dados[2] = "0.25";
-        dados[3] = "kg";
-        dados[4] = "0.10";
+        dados[1] = "09/04/2020 14:32:05";
+        dados[2] = "ola2";
+        dados[3] = "1";
+        dados[4] = "1";
 
-        CntlVendedor.salvar(dados);
-        String d[] = CntlVendedor.recuperar(1);
-        dados2 = CntlVendedor.recuperarTodos();
+        CntlPedido.salvar(dados);
+        String d[] = CntlPedido.recuperar(1);
+        dados2 = CntlPedido.recuperarTodos();
         System.out.println(dados2[0][2]);
         System.out.println(d[1]);
         System.out.println("termino");
