@@ -1,5 +1,8 @@
 package model;
 
+import dao.DaoProduto;
+import dao.DaoPedido;
+
 public class MdlPedidoProduto {
     private int id;
     private double quantidade;
@@ -26,6 +29,20 @@ public class MdlPedidoProduto {
         this.total = total;
         this.produto = produto;
         this.pedido = pedido;
+    }
+
+    public MdlPedidoProduto(int id, double quantidade, double valor, double total, int idProduto, int idPedido) {
+        this.id = id;
+        this.quantidade = quantidade;
+        this.valor = valor;
+        this.total = total;
+        
+        DaoProduto daoProduto = new DaoProduto();
+        this.produto = daoProduto.Recupera(idProduto);
+        
+        DaoPedido daopedido = new DaoPedido();
+        this.pedido = daopedido.Recupera(idPedido);
+ 
     }
 
     public int getId() {

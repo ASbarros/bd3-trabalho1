@@ -1,6 +1,9 @@
 package model;
 
+import dao.DaoCliente;
+import dao.DaoVendedor;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MdlPedido {
     private int id;
@@ -25,6 +28,21 @@ public class MdlPedido {
         this.observacao = observacao;
         this.cliente = cliente;
         this.vendedor = vendedor;
+    }
+
+    public MdlPedido(int id, Date date, String observacao, int idCliente, int idVendedor) {
+        this.id = id;
+        
+        data = Calendar.getInstance();
+        data.setTime(date);
+        
+        this.observacao = observacao;
+        
+        DaoCliente daoCliente = new DaoCliente();
+        this.cliente = daoCliente.Recupera(idCliente);
+        
+        DaoVendedor daoVendedor = new DaoVendedor();
+        this.vendedor = daoVendedor.Recupera(idVendedor);    
     }
 
     public int getId() {

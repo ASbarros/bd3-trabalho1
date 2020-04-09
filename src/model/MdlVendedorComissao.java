@@ -1,6 +1,10 @@
 package model;
 
+import dao.DaoPedido;
+import dao.DaoVendedor;
+
 public class MdlVendedorComissao {
+
     private int id;
     private double percentual;
     private double valor;
@@ -23,6 +27,18 @@ public class MdlVendedorComissao {
         this.valor = valor;
         this.vendedor = vendedor;
         this.pedido = pedido;
+    }
+
+    public MdlVendedorComissao(int id, double percentual, double valor, int idVendedor, int idPedido) {
+        this.id = id;
+        this.percentual = percentual;
+        this.valor = valor;
+        
+        DaoVendedor daoVendedor = new DaoVendedor();
+        this.vendedor = daoVendedor.Recupera(idVendedor);
+        
+        DaoPedido daoPedido = new DaoPedido();
+        this.pedido = daoPedido.Recupera(idPedido);
     }
 
     public int getId() {
@@ -64,6 +80,4 @@ public class MdlVendedorComissao {
     public void setPedido(MdlPedido pedido) {
         this.pedido = pedido;
     }
-    
-    
 }

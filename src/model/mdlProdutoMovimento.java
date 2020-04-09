@@ -1,30 +1,46 @@
 package model;
 
+import dao.DaoProduto;
 import java.util.Calendar;
+import java.util.Date;
 
-public class mdlProdutoMovimento {
+public class MdlProdutoMovimento {
+
     private int id;
     private String tipo;
     private Calendar data;
     private String descricao;
     private MdlProduto produto;
 
-    public mdlProdutoMovimento() {
+    public MdlProdutoMovimento() {
     }
 
-    public mdlProdutoMovimento(String tipo, Calendar data, String descricao, MdlProduto produto) {
+    public MdlProdutoMovimento(String tipo, Calendar data, String descricao, MdlProduto produto) {
         this.tipo = tipo;
         this.data = data;
         this.descricao = descricao;
         this.produto = produto;
     }
 
-    public mdlProdutoMovimento(int id, String tipo, Calendar data, String descricao, MdlProduto produto) {
+    public MdlProdutoMovimento(int id, String tipo, Calendar data, String descricao, MdlProduto produto) {
         this.id = id;
         this.tipo = tipo;
         this.data = data;
         this.descricao = descricao;
         this.produto = produto;
+    }
+
+    public MdlProdutoMovimento(int id, String tipo, Date date, String descricao, int idProduto) {
+        this.id = id;
+        this.tipo = tipo;
+
+        this.data = Calendar.getInstance();
+        this.data.setTime(date);
+
+        this.descricao = descricao;
+        
+        DaoProduto daoProduto = new DaoProduto();
+        this.produto = daoProduto.Recupera(idProduto);
     }
 
     public int getId() {
@@ -66,6 +82,5 @@ public class mdlProdutoMovimento {
     public void setProduto(MdlProduto produto) {
         this.produto = produto;
     }
-    
-    
+
 }

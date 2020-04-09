@@ -1,6 +1,9 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MdlCliente {
     private int id;
@@ -26,6 +29,14 @@ public class MdlCliente {
         this.nome = nome;
         this.cpf = cpf;
         this.ultimaCompra = ultimaCompra;
+    }
+
+    public MdlCliente(int id, String nome, String cpf, Date UltComp) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        ultimaCompra = Calendar.getInstance();
+        ultimaCompra.setTime(UltComp);
     }
 
     //get e set
@@ -59,5 +70,16 @@ public class MdlCliente {
 
     public void setUltimaCompra(Calendar ultimaCompra) {
         this.ultimaCompra = ultimaCompra;
+    }
+    
+    public void setUltimaCompraString(String data){
+        try {
+            SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
+            Date novaData = dataFormatada.parse(data);
+
+            ultimaCompra.setTime(novaData);
+        } catch (ParseException ex) {
+            System.out.println("Erro ao converter a data: " + ex.getMessage());
+        }
     }
 }
