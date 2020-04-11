@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import model.MdlVendedor;
 
 public class DaoVendedor {
+
     private Connection minhaConexao;
 
     public DaoVendedor() {
@@ -79,7 +80,7 @@ public class DaoVendedor {
         excluir(vendedor.getId());
     }
 
-     public MdlVendedor recuperar(int index) {
+    public MdlVendedor recuperar(int index) {
         String sql = "select id_vend, nome_vend, percentual_vend from vendedor where id_vend = ?";
 
         try {
@@ -109,7 +110,7 @@ public class DaoVendedor {
             PreparedStatement stp = minhaConexao.prepareStatement(sql);
             ResultSet resultado = stp.executeQuery();
 
-            if (resultado.next()) {
+            while (resultado.next()) {
                 MdlVendedor obj = new MdlVendedor();
                 obj.setId(Integer.parseInt(resultado.getString("id_vend")));
                 obj.setNome(resultado.getString("nome_vend"));

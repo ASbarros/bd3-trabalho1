@@ -2,7 +2,6 @@ package model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class MdlCliente {
@@ -10,7 +9,7 @@ public class MdlCliente {
     private int id;
     private String nome;
     private String cpf;
-    private Calendar ultimaCompra;
+    private String ultimaCompra;
 
     //construtores
     //sem parametros
@@ -18,26 +17,18 @@ public class MdlCliente {
     }
 
     //sem ID
-    public MdlCliente(String nome, String cpf, Calendar ultimaCompra) {
+    public MdlCliente(String nome, String cpf, Date ultimaCompra) {
         this.nome = nome;
         this.cpf = cpf;
-        this.ultimaCompra = ultimaCompra;
+        this.ultimaCompra = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(ultimaCompra);
     }
 
     //completo
-    public MdlCliente(int id, String nome, String cpf, Calendar ultimaCompra) {
+    public MdlCliente(int id, String nome, String cpf, Date ultimaCompra) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
-        this.ultimaCompra = ultimaCompra;
-    }
-
-    public MdlCliente(int id, String nome, String cpf, Date UltComp) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        ultimaCompra = Calendar.getInstance();
-        ultimaCompra.setTime(UltComp);
+        this.ultimaCompra = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(ultimaCompra);
     }
 
     public static MdlCliente parseCliente(String dados[]) {
@@ -46,7 +37,7 @@ public class MdlCliente {
         cliente.setId(Integer.parseInt(dados[0]));
         cliente.setCpf(dados[1]);
         cliente.setNome(dados[2]);
-        //cliente.setUltimaCompraString(dados[3]);
+        cliente.setUltimaCompra(dados[3]);
 
         return cliente;
     }
@@ -56,7 +47,11 @@ public class MdlCliente {
         dados[0] = String.valueOf(this.id);
         dados[1] = this.cpf;
         dados[2] = this.nome;
-        dados[3] = String.valueOf(this.ultimaCompra);
+        //if (this.ultimaCompra.equals(null)) {
+            dados[3] = "";
+        //} else {
+          //  dados[3] = String.valueOf(this.ultimaCompra);
+        //}
 
         return dados;
     }
@@ -86,23 +81,16 @@ public class MdlCliente {
         this.cpf = cpf;
     }
 
-    public Calendar getUltimaCompra() {
+    public String getUltimaCompra() {
         return ultimaCompra;
     }
 
-    public void setUltimaCompra(Calendar ultimaCompra) {
+    public void setUltimaCompra(Date ultimaCompra) {
+        this.ultimaCompra = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(ultimaCompra);
+    }
+
+    public void setUltimaCompra(String ultimaCompra) {
         this.ultimaCompra = ultimaCompra;
     }
 
-    public void setUltimaCompraString(String data) {
-        try {
-            SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
-            Date novaData = dataFormatada.parse(data);
-
-            ultimaCompra.setTime(novaData);
-        } catch (ParseException ex) {
-            ultimaCompra = null;
-            System.out.println("Erro ao converter a data: " + ex.getMessage());
-        }
-    }
 }

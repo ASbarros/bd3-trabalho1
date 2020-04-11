@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,13 +54,15 @@ public class DaoCliente {
 
             comandoSQL.setString(1, cliente.getNome());
             comandoSQL.setString(2, cliente.getCpf());
-            comandoSQL.setDate(3, new java.sql.Date(cliente.getUltimaCompra().getTime().getTime()));
+            comandoSQL.setDate(3, new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(cliente.getUltimaCompra()).getTime()));
             comandoSQL.setInt(4, cliente.getId());
 
             comandoSQL.executeUpdate();
             comandoSQL.close();
         } catch (SQLException e) {
             System.err.println("Erro ao atualizar cliente: " + e.getMessage());
+        } catch (ParseException ex) {
+            Logger.getLogger(DaoCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -115,12 +119,13 @@ public class DaoCliente {
             PreparedStatement stp = minhaConexao.prepareStatement(sql);
             ResultSet resultado = stp.executeQuery();
 
-            if (resultado.next()) {
+            while (resultado.next()) {
                 MdlCliente obj = new MdlCliente();
                 obj.setId(Integer.parseInt(resultado.getString("id_cli")));
                 obj.setNome(resultado.getString("nome_cli"));
                 obj.setCpf(resultado.getString("cpf_cli"));
-                // obj.setUltimaCompraString(resultado.getString("ultcomp_cli"));
+                //obj.setUltimaCompra(resultado.getString("ultcomp_cli"));
+
                 lista.add(obj);
             }
             return lista;

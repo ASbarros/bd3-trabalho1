@@ -33,6 +33,7 @@ public class CntlCliente {
         ArrayList<MdlCliente> lista = new ArrayList<>();
         lista = dao.recuperarTodos();
         String dados[][] = new String[lista.size()][4];
+        System.out.println(lista.size());
 
         for (int i = 0; i < lista.size(); i++) {
             MdlCliente cliente = lista.get(i);
