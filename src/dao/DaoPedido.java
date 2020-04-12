@@ -1,17 +1,14 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.MdlCliente;
 import model.MdlPedido;
 
 public class DaoPedido {
@@ -32,7 +29,7 @@ public class DaoPedido {
 
         try {
             comandoSQL = minhaConexao.prepareStatement(sql);
-            comandoSQL.setDate(1, new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(pedido.getData()).getTime()));
+            comandoSQL.setDate(1, new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(pedido.getData()).getTime()));
             comandoSQL.setString(2, pedido.getObservacao());
             comandoSQL.setInt(3, pedido.getCliente().getId());
             comandoSQL.setInt(4, pedido.getVendedor().getId());

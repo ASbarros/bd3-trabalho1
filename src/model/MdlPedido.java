@@ -25,7 +25,7 @@ public class MdlPedido {
     
     public MdlPedido(int id, Date data, String observacao, MdlCliente cliente, MdlVendedor vendedor) {
         this.id = id;
-        this.data = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(data);;
+        this.data = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(data);
         this.observacao = observacao;
         this.cliente = cliente;
         this.vendedor = vendedor;
@@ -34,7 +34,7 @@ public class MdlPedido {
     public MdlPedido(int id, Date date, String observacao, int idCliente, int idVendedor) {
         this.id = id;
         
-        this.data = data;
+        this.data = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
         
         this.observacao = observacao;
         
@@ -49,7 +49,8 @@ public class MdlPedido {
         MdlPedido pedido = new MdlPedido();
         
         pedido.setId(Integer.parseInt(dados[0]));
-        pedido.setData(dados[1]);
+        //pedido.setData(dados[1]);
+        pedido.setData(new Date());
         pedido.setObservacao(dados[2]);
         pedido.setCliente(new DaoCliente().recuperar(Integer.parseInt(dados[3])));
         pedido.setVendedor(new DaoVendedor().recuperar(Integer.parseInt(dados[4])));
@@ -85,7 +86,7 @@ public class MdlPedido {
     }
     
     public void setData(Date data) {
-        this.data = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(data);;
+        this.data = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(data);
     }
     
     public String getObservacao() {

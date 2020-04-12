@@ -36,7 +36,8 @@ public class MdlProdutoMovimento {
 
         obj.setId(Integer.parseInt(dados[0]));
         obj.setTipo(dados[1]);
-        obj.setData(dados[2]);
+        //obj.setData(dados[2]);
+        obj.setData(new Date());
         obj.setDescricao(dados[3]);
         obj.setProduto(new DaoProduto().recuperar(Integer.parseInt(dados[4])));
 
