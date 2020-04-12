@@ -136,4 +136,25 @@ public class DaoPedido {
         }
         return null;
     }
+    
+    public String recuperarUltimo(int idCliente) {
+        String sql = "select max(data_ped) as data_ped from pedido where id_cli_ped = ?";
+
+        try {
+            PreparedStatement stp = minhaConexao.prepareStatement(sql);
+            stp.setInt(1, idCliente);
+            ResultSet resultado = stp.executeQuery();
+
+            String obj = new String();
+
+            if (resultado.next()) {
+                obj = resultado.getString("data_ped");
+            }
+            return obj;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MdlPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

@@ -39,4 +39,9 @@ public class CntlPedido {
         }
         return dados;
     }
+    
+    public static String recuperarUltimo(int idCliente){
+        DaoPedido dao = new DaoPedido();
+        return dao.recuperarUltimo(idCliente);
+    }
 }
