@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class OperacaoPedido {
 
-    public void gavarPedido(String codPedido, String Observacao, String idCliente, String idVendedor, String dadosPedidosProdutos[][], String dadosPedidosMovimento[][], String codComissao) {
+    public static void gavarPedido(String codPedido, String Observacao, String idCliente, String idVendedor, String dadosPedidosProdutos[][], String dadosPedidosMovimento[][], String codComissao) {
         Connection minhaConexao = FabricaConexao.getConexaoCUSTOMIZADA();
         double totalPedido = 0;
         
@@ -55,13 +55,14 @@ public class OperacaoPedido {
             dadosComissao[3] = idVendedor;
             dadosComissao[4] = codPedido;
 
-            CntlVendedorComissao.salvar(dadosPedidos);
-            
+            CntlVendedorComissao.salvar(dadosComissao);
+
             //Atualiza a ultima compra
             String[] cliente = CntlCliente.recuperar(Integer.valueOf(idCliente));//dados do cliente
             cliente[3] = new Date().toString();//altera da data
             CntlCliente.salvar(cliente);//salva a data
-            
+                                    System.out.println("aki");
+
             //Finaliza o processo de gravar
             minhaConexao.commit();
             minhaConexao.close();
