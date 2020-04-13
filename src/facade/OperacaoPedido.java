@@ -24,15 +24,17 @@ public class OperacaoPedido {
             dadosPedidos[4] = idVendedor;
 
             CntlPedido.salvar(dadosPedidos);
+            
+            dadosPedidos[0] = CntlPedido.recuperarUltimo();//atualiza o codigo do pedido
 
             // salva em pedido_produto
             for (String[] dadosPedidosProduto : dadosPedidosProdutos) {
                 totalPedido = totalPedido + Double.parseDouble(dadosPedidosProduto[3]);
+                dadosPedidosProduto[5] = dadosPedidos[0];
 
                 //se saida
                 String[] produto = CntlProduto.recuperar(Integer.valueOf(dadosPedidosProduto[4]));
                 if (dadosPedidosMovimento[0][1].equals("s")) {
-
                     produto[2] = String.valueOf(Double.parseDouble(produto[2]) - Double.parseDouble(dadosPedidosProduto[1]));
                 } else {
                     //se entrada
@@ -55,15 +57,14 @@ public class OperacaoPedido {
             dadosComissao[1] = vendedor[2];
             dadosComissao[2] = String.valueOf(totalPedido * Double.valueOf(vendedor[2]));
             dadosComissao[3] = idVendedor;
-            dadosComissao[4] = codPedido;
+            dadosComissao[4] = dadosPedidos[0];
 
             CntlVendedorComissao.salvar(dadosComissao);
 
             //Atualiza a ultima compra
             String[] cliente = CntlCliente.recuperar(Integer.valueOf(idCliente));//dados do cliente
-            cliente[3] = new Date().toString();//altera da data
+            //cliente[3] = new Date().toString();//altera da data
             CntlCliente.salvar(cliente);//salva a data
-            System.out.println("aki");
 
             //Finaliza o processo de gravar
             minhaConexao.commit();
@@ -80,9 +81,9 @@ public class OperacaoPedido {
         }
     }
 
-    public void excluir(String codPedido, String dadosPedidosProdutos[][], String dadosPedidosMovimento[][], String codComissao) {
+    public static void excluir(String codPedido, String dadosPedidosProdutos[][], String dadosPedidosMovimento[][], String codComissao) {
         Connection minhaConexao = FabricaConexao.getConexaoCUSTOMIZADA();
-        String[] produtoMovimento = CntlProdutoMovimento.recuperar(Integer.parseInt(dadosPedidosMovimento[0][0]));
+        String[] produtoMovimento = CntlProdutoMovimento.recuperar(Integer.parseInt(dadosPedidosMovimento[0][0]));//recupera movimento para exemplo
         
         try {
             //recupera os dados dos pedidos
@@ -105,11 +106,12 @@ public class OperacaoPedido {
                 }
                 //atualiza a quantidade de produtos no banco
                 CntlProduto.salvar(produto);
-                CntlPedidoProduto.deletar(Integer.parseInt(dadosPedidosProduto[0]));//exclui o registro do pedido
+                //exclui o registro do pedido produto
+                CntlPedidoProduto.deletar(Integer.parseInt(dadosPedidosProduto[0]));
             }
 
             //Exclui comissao vendedor
-            CntlVendedorComissao.deletar(Integer.valueOf(dadosPedido[4]));//dados da comissao do vendedor
+            CntlVendedorComissao.deletar(Integer.valueOf(codComissao));//dados da comissao do vendedor
             
             //exclui do registro produtos pedido
             for (String dadosPedidosProduto[] : dadosPedidosProdutos) {

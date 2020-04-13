@@ -1,10 +1,12 @@
 package control;
 
 import dao.DaoPedido;
+import dao.FabricaConexao;
 import java.util.ArrayList;
 import model.MdlPedido;
 
 public class CntlPedido {
+
     public static void salvar(String dados[]) {
         MdlPedido pedido = MdlPedido.parsePedido(dados);
         DaoPedido dao = new DaoPedido();
@@ -39,9 +41,14 @@ public class CntlPedido {
         }
         return dados;
     }
-    
-    public static String recuperarUltimo(int idCliente){
+
+    public static String recuperarUltimo(int idCliente) {
         DaoPedido dao = new DaoPedido();
         return dao.recuperarUltimo(idCliente);
+    }
+
+    public static String recuperarUltimo() {
+        DaoPedido dao = new DaoPedido();
+        return dao.recuperarUltimo();
     }
 }

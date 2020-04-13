@@ -34,16 +34,17 @@ public class MdlProduto {
         produto.setSaldo(Double.parseDouble(dados[2]));
         produto.setUnidade(dados[3]);
         produto.setValor(Double.parseDouble(dados[4]));
-
+        
         return produto;
     }
 
     public String[] toArray() {
-        String dados[] = new String[4];
+        String dados[] = new String[5];
         dados[0] = String.valueOf(this.id);
         dados[1] = this.descricao;
         dados[2] = String.valueOf(this.saldo);
         dados[3] = this.unidade;
+        dados[4] = String.valueOf(this.valor);
 
         return dados;
     }

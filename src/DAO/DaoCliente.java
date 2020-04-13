@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -54,15 +55,14 @@ public class DaoCliente {
 
             comandoSQL.setString(1, cliente.getNome());
             comandoSQL.setString(2, cliente.getCpf());
-            comandoSQL.setDate(3, new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(cliente.getUltimaCompra()).getTime()));
+            //comandoSQL.setDate(3, new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(cliente.getUltimaCompra()).getTime()));
+            comandoSQL.setDate(3, new Date(0));
             comandoSQL.setInt(4, cliente.getId());
 
             comandoSQL.executeUpdate();
             comandoSQL.close();
         } catch (SQLException e) {
             System.err.println("Erro ao atualizar cliente: " + e.getMessage());
-        } catch (ParseException ex) {
-            Logger.getLogger(DaoCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -23,8 +23,8 @@ public class CntlProduto {
 
     public static String[] recuperar(int id) {
         DaoProduto dao = new DaoProduto();
-        MdlProduto cliente = dao.recuperar(id);
-        return cliente.toArray();
+        MdlProduto produto = dao.recuperar(id);
+        return produto.toArray();
     }
 
     public static String[][] recuperarTodos() {
