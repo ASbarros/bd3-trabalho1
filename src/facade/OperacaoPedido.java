@@ -33,10 +33,10 @@ public class OperacaoPedido {
                 String[] produto = CntlProduto.recuperar(Integer.valueOf(dadosPedidosProduto[4]));
                 if (dadosPedidosMovimento[0][1].equals("s")) {
 
-                    produto[2] = String.valueOf(Double.parseDouble(produto[2]) + Double.parseDouble(dadosPedidosProduto[1]));
+                    produto[2] = String.valueOf(Double.parseDouble(produto[2]) - Double.parseDouble(dadosPedidosProduto[1]));
                 } else {
                     //se entrada
-                    produto[2] = String.valueOf(Double.parseDouble(produto[2]) - Double.parseDouble(dadosPedidosProduto[1]));
+                    produto[2] = String.valueOf(Double.parseDouble(produto[2]) + Double.parseDouble(dadosPedidosProduto[1]));
                 }
                 CntlProduto.salvar(produto);
                 CntlPedidoProduto.salvar(dadosPedidosProduto);
