@@ -1,30 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package visao;
 
-import control.CntlCliente;
+import control.CntlProduto;
 
-/**
- *
- * @author hetikos
- */
-public class CrudPedido extends javax.swing.JFrame {
+public class CrudProduto extends javax.swing.JFrame {
+
+    String[] dadosProduto = new String[5];
 
     /**
-     * Creates new form CrudCliente
-     *
-     * @param id
+     * Creates new form CrudProduto
      */
-    String dadosCliente[] = new String[4];
-
-    public CrudPedido() {
+    public CrudProduto() {
         initComponents();
     }
 
-    public CrudPedido(int id) {
+    public CrudProduto(int id) {
+        initComponents();
+
+        if (id != 0) {
+            dadosProduto = CntlProduto.recuperar(id);
+        } else {
+            dadosProduto[0] = "0";
+        }
+
+        this.cmp_codigo.setText(dadosProduto[0]);
+        this.cmp_descricao.setText(dadosProduto[1]);
+        this.cmp_saldo.setText(dadosProduto[2]);
+        this.cmp_unidade.setText(dadosProduto[3]);
+        this.cmp_preco.setText(dadosProduto[4]);
 
     }
 
@@ -40,18 +42,20 @@ public class CrudPedido extends javax.swing.JFrame {
         pn_titulo = new javax.swing.JPanel();
         txt_titulo = new javax.swing.JLabel();
         pn_dados = new javax.swing.JPanel();
-        jCcliente = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        jCvendedor = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTobs = new javax.swing.JTextPane();
+        cmp_codigo = new javax.swing.JTextField();
+        txt_codigo = new javax.swing.JLabel();
+        txt_descricao = new javax.swing.JLabel();
+        cmp_descricao = new javax.swing.JTextField();
+        txt_saldo = new javax.swing.JLabel();
+        cmp_saldo = new javax.swing.JTextField();
+        txt_unidade = new javax.swing.JLabel();
+        cmp_unidade = new javax.swing.JTextField();
+        txt_preco = new javax.swing.JLabel();
+        cmp_preco = new javax.swing.JTextField();
         pn_botao = new javax.swing.JPanel();
         bt_salvar = new javax.swing.JButton();
         bt_excluir = new javax.swing.JButton();
         bt_cancelar = new javax.swing.JButton();
-        bt_editar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,7 +63,7 @@ public class CrudPedido extends javax.swing.JFrame {
 
         txt_titulo.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         txt_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txt_titulo.setText("CADASTRO DE PEDIDO");
+        txt_titulo.setText("CADASTRO DE PRODUTO");
 
         javax.swing.GroupLayout pn_tituloLayout = new javax.swing.GroupLayout(pn_titulo);
         pn_titulo.setLayout(pn_tituloLayout);
@@ -77,13 +81,18 @@ public class CrudPedido extends javax.swing.JFrame {
 
         pn_dados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setText("CLIENTE");
+        cmp_codigo.setEditable(false);
+        cmp_codigo.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setText("VENDEDOR");
+        txt_codigo.setText("CODIGO:");
 
-        jLabel4.setText("OBSERVAÇÃO");
+        txt_descricao.setText("DESCRIÇÃO:");
 
-        jScrollPane1.setViewportView(jTobs);
+        txt_saldo.setText("SALDO:");
+
+        txt_unidade.setText("UNIDADE:");
+
+        txt_preco.setText("PREÇO");
 
         javax.swing.GroupLayout pn_dadosLayout = new javax.swing.GroupLayout(pn_dados);
         pn_dados.setLayout(pn_dadosLayout);
@@ -92,65 +101,66 @@ public class CrudPedido extends javax.swing.JFrame {
             .addGroup(pn_dadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(pn_dadosLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pn_dadosLayout.createSequentialGroup()
-                        .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCcliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jCvendedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                    .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txt_unidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_descricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_saldo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_codigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txt_preco, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmp_descricao)
+                    .addComponent(cmp_saldo)
+                    .addComponent(cmp_codigo, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(cmp_unidade)
+                    .addComponent(cmp_preco)))
         );
         pn_dadosLayout.setVerticalGroup(
             pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_dadosLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_dadosLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jCcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_codigo)
+                    .addComponent(cmp_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_descricao)
+                    .addComponent(cmp_descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jCvendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(jLabel4)
+                    .addComponent(txt_saldo)
+                    .addComponent(cmp_saldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_unidade)
+                    .addComponent(cmp_unidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_preco)
+                    .addComponent(cmp_preco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pn_botao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        bt_salvar.setText("Salvar");
+        bt_salvar.setText("SALVAR");
         bt_salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_salvarActionPerformed(evt);
             }
         });
 
-        bt_excluir.setText("Excluir");
+        bt_excluir.setText("EXCLUIR");
         bt_excluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_excluirActionPerformed(evt);
             }
         });
 
-        bt_cancelar.setText("Cancelar");
+        bt_cancelar.setText("CANCELAR");
         bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_cancelarActionPerformed(evt);
-            }
-        });
-
-        bt_editar.setText("editar");
-        bt_editar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_editarActionPerformed(evt);
             }
         });
 
@@ -160,14 +170,12 @@ public class CrudPedido extends javax.swing.JFrame {
             pn_botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_botaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bt_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(bt_excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(bt_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(bt_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(bt_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(bt_excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(bt_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pn_botaoLayout.setVerticalGroup(
             pn_botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,8 +184,7 @@ public class CrudPedido extends javax.swing.JFrame {
                 .addGroup(pn_botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_salvar)
                     .addComponent(bt_excluir)
-                    .addComponent(bt_cancelar)
-                    .addComponent(bt_editar))
+                    .addComponent(bt_cancelar))
                 .addContainerGap())
         );
 
@@ -188,9 +195,9 @@ public class CrudPedido extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pn_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pn_botao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pn_dados, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pn_titulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pn_dados, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -198,9 +205,9 @@ public class CrudPedido extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pn_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pn_dados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pn_botao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -210,20 +217,25 @@ public class CrudPedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salvarActionPerformed
-        
+        dadosProduto[0] = this.cmp_codigo.getText();
+        dadosProduto[1] = this.cmp_descricao.getText();
+        dadosProduto[2] = this.cmp_saldo.getText();
+        dadosProduto[3] = this.cmp_unidade.getText();
+        dadosProduto[4] = this.cmp_preco.getText();
+
+        CntlProduto.salvar(dadosProduto);
     }//GEN-LAST:event_bt_salvarActionPerformed
 
     private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
-        
+        CntlProduto.deletar(Integer.parseInt(dadosProduto[0]));
     }//GEN-LAST:event_bt_excluirActionPerformed
 
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
-        
+        this.cmp_descricao.setText(dadosProduto[1]);
+        this.cmp_saldo.setText(dadosProduto[2]);
+        this.cmp_unidade.setText(dadosProduto[3]);
+        this.cmp_preco.setText(dadosProduto[4]);
     }//GEN-LAST:event_bt_cancelarActionPerformed
-
-    private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bt_editarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,43 +254,41 @@ public class CrudPedido extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CrudPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrudProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CrudPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrudProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CrudPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrudProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CrudPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrudProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CrudPedido().setVisible(true);
+                new CrudProduto().setVisible(true);
             }
         });
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cancelar;
-    private javax.swing.JButton bt_editar;
     private javax.swing.JButton bt_excluir;
     private javax.swing.JButton bt_salvar;
-    private javax.swing.JComboBox<String> jCcliente;
-    private javax.swing.JComboBox<String> jCvendedor;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTobs;
+    private javax.swing.JTextField cmp_codigo;
+    private javax.swing.JTextField cmp_descricao;
+    private javax.swing.JTextField cmp_preco;
+    private javax.swing.JTextField cmp_saldo;
+    private javax.swing.JTextField cmp_unidade;
     private javax.swing.JPanel pn_botao;
     private javax.swing.JPanel pn_dados;
     private javax.swing.JPanel pn_titulo;
+    private javax.swing.JLabel txt_codigo;
+    private javax.swing.JLabel txt_descricao;
+    private javax.swing.JLabel txt_preco;
+    private javax.swing.JLabel txt_saldo;
     private javax.swing.JLabel txt_titulo;
+    private javax.swing.JLabel txt_unidade;
     // End of variables declaration//GEN-END:variables
 }

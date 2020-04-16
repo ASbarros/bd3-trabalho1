@@ -1,13 +1,11 @@
 package bd3_trabalho1;
 
-import facade.OperacaoPedido;
-import javax.swing.JFrame;
-import visao.CrudCliente;
+import visao.*;
 
 public class Bd3_trabalho1 {
 
     public static void main(String[] args) {
-        CrudCliente tela = new CrudCliente(12);
+        CrudProduto tela = new CrudProduto(17);
         tela.setVisible(true);
     }
 }

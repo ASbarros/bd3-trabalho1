@@ -31,7 +31,7 @@ public class CrudCliente extends javax.swing.JFrame {
         if (id != 0) {
             dadosCliente = CntlCliente.recuperar(id);
         } else {
-            dadosCliente = null;
+            dadosCliente[0] = "0";
         }
 
         this.cmp_codigo.setText(dadosCliente[0]);
@@ -107,11 +107,11 @@ public class CrudCliente extends javax.swing.JFrame {
                         .addComponent(txt_cpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txt_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
                     .addComponent(txt_codigo))
-                .addGap(40, 40, 40)
+                .addGap(52, 52, 52)
                 .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmp_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(cmp_nome)
                     .addComponent(cmp_cpf)
-                    .addComponent(cmp_codigo))
+                    .addComponent(cmp_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pn_dadosLayout.setVerticalGroup(
@@ -134,21 +134,21 @@ public class CrudCliente extends javax.swing.JFrame {
 
         pn_botao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        bt_salvar.setText("Salvar");
+        bt_salvar.setText("SALVAR");
         bt_salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_salvarActionPerformed(evt);
             }
         });
 
-        bt_excluir.setText("Excluir");
+        bt_excluir.setText("EXCLUIR");
         bt_excluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_excluirActionPerformed(evt);
             }
         });
 
-        bt_cancelar.setText("Cancelar");
+        bt_cancelar.setText("CANCELAR");
         bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_cancelarActionPerformed(evt);
@@ -161,11 +161,11 @@ public class CrudCliente extends javax.swing.JFrame {
             pn_botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_botaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bt_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bt_excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bt_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bt_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(bt_excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(bt_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pn_botaoLayout.setVerticalGroup(

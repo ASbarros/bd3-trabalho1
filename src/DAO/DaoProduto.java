@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +25,6 @@ public class DaoProduto {
         PreparedStatement comandoSQL;
 
         String sql = "insert into produto (descricao_prod, saldo_prod, unidade_prod, valor_prod) values (?,?,?,?);";
-        System.out.println(produto.getUnidade());
         try {
             comandoSQL = minhaConexao.prepareStatement(sql);
 
