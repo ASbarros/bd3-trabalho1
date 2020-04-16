@@ -5,9 +5,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -101,8 +98,7 @@ public class DaoCliente {
                 obj.setId(Integer.parseInt(resultado.getString("id_cli")));
                 obj.setNome(resultado.getString("nome_cli"));
                 obj.setCpf(resultado.getString("cpf_cli"));
-                // obj.setUltimaCompraString(resultado.getString("ultcomp_cli"));
-
+                obj.setUltimaCompra(resultado.getString("ultcomp_cli"));
             }
             return obj;
 

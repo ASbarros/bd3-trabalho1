@@ -46,11 +46,11 @@ public class MdlCliente {
         dados[0] = String.valueOf(this.id);
         dados[1] = this.cpf;
         dados[2] = this.nome;
-        //if (this.ultimaCompra.equals(null)) {
+        if (this.ultimaCompra == null) {
             dados[3] = "";
-        //} else {
-          //  dados[3] = String.valueOf(this.ultimaCompra);
-        //}
+        } else {
+            dados[3] = String.valueOf(this.ultimaCompra);
+        }
 
         return dados;
     }
