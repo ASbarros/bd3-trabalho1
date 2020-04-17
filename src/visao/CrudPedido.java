@@ -1,16 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package visao;
 
-import control.CntlCliente;
-
-/**
- *
- * @author hetikos
- */
 public class CrudPedido extends javax.swing.JFrame {
 
     /**
@@ -51,7 +40,6 @@ public class CrudPedido extends javax.swing.JFrame {
         bt_salvar = new javax.swing.JButton();
         bt_excluir = new javax.swing.JButton();
         bt_cancelar = new javax.swing.JButton();
-        bt_editar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,11 +105,11 @@ public class CrudPedido extends javax.swing.JFrame {
                 .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jCvendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addContainerGap())
         );
 
         pn_botao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -147,13 +135,6 @@ public class CrudPedido extends javax.swing.JFrame {
             }
         });
 
-        bt_editar.setText("editar");
-        bt_editar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_editarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout pn_botaoLayout = new javax.swing.GroupLayout(pn_botao);
         pn_botao.setLayout(pn_botaoLayout);
         pn_botaoLayout.setHorizontalGroup(
@@ -165,9 +146,7 @@ public class CrudPedido extends javax.swing.JFrame {
                 .addComponent(bt_excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
                 .addComponent(bt_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(bt_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pn_botaoLayout.setVerticalGroup(
             pn_botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,8 +155,7 @@ public class CrudPedido extends javax.swing.JFrame {
                 .addGroup(pn_botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_salvar)
                     .addComponent(bt_excluir)
-                    .addComponent(bt_cancelar)
-                    .addComponent(bt_editar))
+                    .addComponent(bt_cancelar))
                 .addContainerGap())
         );
 
@@ -200,7 +178,7 @@ public class CrudPedido extends javax.swing.JFrame {
                 .addComponent(pn_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pn_dados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pn_botao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -220,10 +198,6 @@ public class CrudPedido extends javax.swing.JFrame {
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
         
     }//GEN-LAST:event_bt_cancelarActionPerformed
-
-    private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bt_editarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,7 +240,6 @@ public class CrudPedido extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cancelar;
-    private javax.swing.JButton bt_editar;
     private javax.swing.JButton bt_excluir;
     private javax.swing.JButton bt_salvar;
     private javax.swing.JComboBox<String> jCcliente;

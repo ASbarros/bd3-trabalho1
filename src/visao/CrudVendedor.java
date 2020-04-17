@@ -1,40 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package visao;
 
-import control.CntlCliente;
+import control.CntlVendedor;
 
-/**
- *
- * @author hetikos
- */
-public class CrudCliente extends javax.swing.JFrame {
+public class CrudVendedor extends javax.swing.JFrame {
 
     /**
      * Creates new form CrudCliente
      *
      * @param id
      */
-    String dadosCliente[] = new String[4];
+    String[] dadosVendedor = new String[3];
 
-    public CrudCliente() {
+    public CrudVendedor() {
         initComponents();
     }
 
-    public CrudCliente(int id) {
+    public CrudVendedor(int id) {
         initComponents();
         if (id != 0) {
-            dadosCliente = CntlCliente.recuperar(id);
+            dadosVendedor = CntlVendedor.recuperar(id);
         } else {
-            dadosCliente[0] = "0";
+            dadosVendedor[0] = "0";
         }
 
-        this.cmp_codigo.setText(dadosCliente[0]);
-        this.cmp_nome.setText(dadosCliente[2]);
-        this.cmp_cpf.setText(dadosCliente[1]);
+        this.cmp_codigo.setText(dadosVendedor[0]);
+        this.cmp_nome.setText(dadosVendedor[1]);
+        this.cmp_percentual.setText(dadosVendedor[2]);
 
     }
 
@@ -50,12 +41,12 @@ public class CrudCliente extends javax.swing.JFrame {
         pn_titulo = new javax.swing.JPanel();
         txt_titulo = new javax.swing.JLabel();
         pn_dados = new javax.swing.JPanel();
-        cmp_codigo = new javax.swing.JTextField();
         txt_codigo = new javax.swing.JLabel();
+        cmp_codigo = new javax.swing.JTextField();
         txt_nome = new javax.swing.JLabel();
         cmp_nome = new javax.swing.JTextField();
-        txt_cpf = new javax.swing.JLabel();
-        cmp_cpf = new javax.swing.JTextField();
+        txt_percentual = new javax.swing.JLabel();
+        cmp_percentual = new javax.swing.JTextField();
         pn_botao = new javax.swing.JPanel();
         bt_salvar = new javax.swing.JButton();
         bt_excluir = new javax.swing.JButton();
@@ -67,7 +58,7 @@ public class CrudCliente extends javax.swing.JFrame {
 
         txt_titulo.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         txt_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txt_titulo.setText("CADASTRO DE CLIENTE");
+        txt_titulo.setText("CADASTRO DE VENDEDOR");
 
         javax.swing.GroupLayout pn_tituloLayout = new javax.swing.GroupLayout(pn_titulo);
         pn_titulo.setLayout(pn_tituloLayout);
@@ -85,14 +76,14 @@ public class CrudCliente extends javax.swing.JFrame {
 
         pn_dados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        txt_codigo.setText("CODIGO:");
+
         cmp_codigo.setEditable(false);
         cmp_codigo.setBackground(new java.awt.Color(255, 255, 255));
 
-        txt_codigo.setText("CODIGO:");
-
         txt_nome.setText("NOME:");
 
-        txt_cpf.setText("CPF:");
+        txt_percentual.setText("PERCENTUAL");
 
         javax.swing.GroupLayout pn_dadosLayout = new javax.swing.GroupLayout(pn_dados);
         pn_dados.setLayout(pn_dadosLayout);
@@ -102,13 +93,13 @@ public class CrudCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txt_cpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txt_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+                        .addComponent(txt_percentual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_nome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(txt_codigo))
-                .addGap(52, 52, 52)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cmp_nome)
-                    .addComponent(cmp_cpf)
+                    .addComponent(cmp_percentual)
                     .addComponent(cmp_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -125,8 +116,8 @@ public class CrudCliente extends javax.swing.JFrame {
                     .addComponent(cmp_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_cpf)
-                    .addComponent(cmp_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_percentual)
+                    .addComponent(cmp_percentual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -206,19 +197,19 @@ public class CrudCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salvarActionPerformed
-        dadosCliente[1] = cmp_cpf.getText();
-        dadosCliente[2] = cmp_nome.getText();
+        dadosVendedor[1] = cmp_nome.getText();
+        dadosVendedor[2] = String.valueOf(Integer.parseInt(cmp_percentual.getText())/100);
 
-        CntlCliente.salvar(dadosCliente);
+        CntlVendedor.salvar(dadosVendedor);
     }//GEN-LAST:event_bt_salvarActionPerformed
 
     private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
-        CntlCliente.deletar(Integer.parseInt(dadosCliente[0]));
+        CntlVendedor.deletar(Integer.parseInt(dadosVendedor[0]));
     }//GEN-LAST:event_bt_excluirActionPerformed
 
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
-        this.cmp_nome.setText(dadosCliente[2]);
-        this.cmp_cpf.setText(dadosCliente[1]);
+        this.cmp_nome.setText(dadosVendedor[1]);
+        this.cmp_percentual.setText(dadosVendedor[2]);
     }//GEN-LAST:event_bt_cancelarActionPerformed
 
     /**
@@ -238,20 +229,21 @@ public class CrudCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CrudCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrudVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CrudCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrudVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CrudCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrudVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CrudCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrudVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CrudCliente().setVisible(true);
+                new CrudVendedor().setVisible(true);
             }
         });
 
@@ -262,14 +254,14 @@ public class CrudCliente extends javax.swing.JFrame {
     private javax.swing.JButton bt_excluir;
     private javax.swing.JButton bt_salvar;
     private javax.swing.JTextField cmp_codigo;
-    private javax.swing.JTextField cmp_cpf;
     private javax.swing.JTextField cmp_nome;
+    private javax.swing.JTextField cmp_percentual;
     private javax.swing.JPanel pn_botao;
     private javax.swing.JPanel pn_dados;
     private javax.swing.JPanel pn_titulo;
     private javax.swing.JLabel txt_codigo;
-    private javax.swing.JLabel txt_cpf;
     private javax.swing.JLabel txt_nome;
+    private javax.swing.JLabel txt_percentual;
     private javax.swing.JLabel txt_titulo;
     // End of variables declaration//GEN-END:variables
 }
