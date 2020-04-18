@@ -2,7 +2,7 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -41,9 +41,9 @@
               <Component id="pn_titulo" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="pn_dados" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="pn_botao" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -106,12 +106,16 @@
                           <Component id="txt_nome" pref="45" max="32767" attributes="0"/>
                       </Group>
                       <Component id="txt_codigo" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_ultimaCompra" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="cmp_nome" alignment="0" max="32767" attributes="0"/>
-                      <Component id="cmp_cpf" alignment="0" max="32767" attributes="0"/>
-                      <Component id="cmp_codigo" min="-2" pref="200" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="cmp_nome" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cmp_codigo" pref="200" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="cmp_cpf" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="cmp_ultimaCompra" min="-2" pref="200" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -125,17 +129,22 @@
                       <Component id="txt_codigo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cmp_codigo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txt_nome" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cmp_nome" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_nome" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="cmp_cpf" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_cpf" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txt_cpf" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cmp_cpf" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmp_ultimaCompra" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_ultimaCompra" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="19" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -168,6 +177,19 @@
         </Component>
         <Component class="javax.swing.JTextField" name="cmp_cpf">
         </Component>
+        <Component class="javax.swing.JLabel" name="txt_ultimaCompra">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="ULTIMA COMPRA:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="cmp_ultimaCompra">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="pn_botao">
@@ -185,9 +207,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="bt_salvar" min="-2" pref="90" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="bt_excluir" min="-2" pref="90" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="bt_cancelar" min="-2" pref="90" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>

@@ -35,6 +35,7 @@ public class CrudCliente extends javax.swing.JFrame {
         this.cmp_codigo.setText(dadosCliente[0]);
         this.cmp_nome.setText(dadosCliente[2]);
         this.cmp_cpf.setText(dadosCliente[1]);
+        this.cmp_ultimaCompra.setText(dadosCliente[3]);
 
     }
 
@@ -56,12 +57,14 @@ public class CrudCliente extends javax.swing.JFrame {
         cmp_nome = new javax.swing.JTextField();
         txt_cpf = new javax.swing.JLabel();
         cmp_cpf = new javax.swing.JTextField();
+        txt_ultimaCompra = new javax.swing.JLabel();
+        cmp_ultimaCompra = new javax.swing.JTextField();
         pn_botao = new javax.swing.JPanel();
         bt_salvar = new javax.swing.JButton();
         bt_excluir = new javax.swing.JButton();
         bt_cancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         pn_titulo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -94,6 +97,11 @@ public class CrudCliente extends javax.swing.JFrame {
 
         txt_cpf.setText("CPF:");
 
+        txt_ultimaCompra.setText("ULTIMA COMPRA:");
+
+        cmp_ultimaCompra.setEditable(false);
+        cmp_ultimaCompra.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout pn_dadosLayout = new javax.swing.GroupLayout(pn_dados);
         pn_dados.setLayout(pn_dadosLayout);
         pn_dadosLayout.setHorizontalGroup(
@@ -104,12 +112,15 @@ public class CrudCliente extends javax.swing.JFrame {
                     .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txt_cpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txt_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
-                    .addComponent(txt_codigo))
-                .addGap(52, 52, 52)
-                .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmp_nome)
-                    .addComponent(cmp_cpf)
-                    .addComponent(cmp_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_codigo)
+                    .addComponent(txt_ultimaCompra))
+                .addGap(14, 14, 14)
+                .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(cmp_nome)
+                        .addComponent(cmp_codigo, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                    .addComponent(cmp_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmp_ultimaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pn_dadosLayout.setVerticalGroup(
@@ -119,15 +130,19 @@ public class CrudCliente extends javax.swing.JFrame {
                 .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_codigo)
                     .addComponent(cmp_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                .addGap(8, 8, 8)
                 .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_nome)
-                    .addComponent(cmp_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(cmp_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_nome))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmp_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_cpf))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_cpf)
-                    .addComponent(cmp_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cmp_ultimaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_ultimaCompra))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pn_botao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -160,9 +175,9 @@ public class CrudCliente extends javax.swing.JFrame {
             .addGroup(pn_botaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(bt_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bt_excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addGap(18, 18, 18)
                 .addComponent(bt_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -196,9 +211,9 @@ public class CrudCliente extends javax.swing.JFrame {
                 .addComponent(pn_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pn_dados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pn_botao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -264,6 +279,7 @@ public class CrudCliente extends javax.swing.JFrame {
     private javax.swing.JTextField cmp_codigo;
     private javax.swing.JTextField cmp_cpf;
     private javax.swing.JTextField cmp_nome;
+    private javax.swing.JTextField cmp_ultimaCompra;
     private javax.swing.JPanel pn_botao;
     private javax.swing.JPanel pn_dados;
     private javax.swing.JPanel pn_titulo;
@@ -271,5 +287,6 @@ public class CrudCliente extends javax.swing.JFrame {
     private javax.swing.JLabel txt_cpf;
     private javax.swing.JLabel txt_nome;
     private javax.swing.JLabel txt_titulo;
+    private javax.swing.JLabel txt_ultimaCompra;
     // End of variables declaration//GEN-END:variables
 }

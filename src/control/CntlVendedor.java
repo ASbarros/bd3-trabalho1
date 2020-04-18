@@ -38,5 +38,5 @@ public static void salvar(String dados[]) {
             dados[i] = vendedor.toArray();
         }
         return dados;
-    }    
+    }
 }

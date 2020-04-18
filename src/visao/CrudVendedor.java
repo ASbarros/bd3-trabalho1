@@ -25,7 +25,7 @@ public class CrudVendedor extends javax.swing.JFrame {
 
         this.cmp_codigo.setText(dadosVendedor[0]);
         this.cmp_nome.setText(dadosVendedor[1]);
-        this.cmp_percentual.setText(dadosVendedor[2]);
+        this.cmp_percentual.setText(String.valueOf(Double.parseDouble(dadosVendedor[2])*100));
 
     }
 
@@ -52,7 +52,7 @@ public class CrudVendedor extends javax.swing.JFrame {
         bt_excluir = new javax.swing.JButton();
         bt_cancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         pn_titulo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -198,7 +198,7 @@ public class CrudVendedor extends javax.swing.JFrame {
 
     private void bt_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salvarActionPerformed
         dadosVendedor[1] = cmp_nome.getText();
-        dadosVendedor[2] = String.valueOf(Integer.parseInt(cmp_percentual.getText())/100);
+        dadosVendedor[2] = String.valueOf(Double.parseDouble(cmp_percentual.getText())/100);
 
         CntlVendedor.salvar(dadosVendedor);
     }//GEN-LAST:event_bt_salvarActionPerformed
@@ -209,7 +209,7 @@ public class CrudVendedor extends javax.swing.JFrame {
 
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
         this.cmp_nome.setText(dadosVendedor[1]);
-        this.cmp_percentual.setText(dadosVendedor[2]);
+        this.cmp_percentual.setText(String.valueOf(Double.parseDouble(dadosVendedor[2])*100));
     }//GEN-LAST:event_bt_cancelarActionPerformed
 
     /**

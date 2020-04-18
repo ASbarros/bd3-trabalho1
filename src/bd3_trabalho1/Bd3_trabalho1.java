@@ -5,7 +5,7 @@ import visao.*;
 public class Bd3_trabalho1 {
 
     public static void main(String[] args) {
-        CrudVendedor tela = new CrudVendedor(12);
+        CrudPedido tela = new CrudPedido(0);
         tela.setVisible(true);
     }
 }
