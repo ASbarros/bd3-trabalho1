@@ -1,7 +1,6 @@
 package control;
 
 import dao.DaoPedido;
-import dao.FabricaConexao;
 import java.util.ArrayList;
 import model.MdlPedido;
 

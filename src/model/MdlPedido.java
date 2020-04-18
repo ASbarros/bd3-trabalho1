@@ -49,8 +49,8 @@ public class MdlPedido {
         MdlPedido pedido = new MdlPedido();
         
         pedido.setId(Integer.parseInt(dados[0]));
-        //pedido.setData(dados[1]);
-        pedido.setData(new Date());
+        pedido.setData(dados[1]);
+        //pedido.setData(new Date());
         pedido.setObservacao(dados[2]);
         pedido.setCliente(new DaoCliente().recuperar(Integer.parseInt(dados[3])));
         pedido.setVendedor(new DaoVendedor().recuperar(Integer.parseInt(dados[4])));

@@ -29,7 +29,7 @@ public class DaoPedido {
 
         try {
             comandoSQL = minhaConexao.prepareStatement(sql);
-            comandoSQL.setDate(1, new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(pedido.getData()).getTime()));
+            comandoSQL.setDate(1, new java.sql.Date(new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse(pedido.getData()).getTime()));
             comandoSQL.setString(2, pedido.getObservacao());
             comandoSQL.setInt(3, pedido.getCliente().getId());
             comandoSQL.setInt(4, pedido.getVendedor().getId());
