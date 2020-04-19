@@ -21,6 +21,9 @@ public class CrudVendedor extends javax.swing.JFrame {
             dadosVendedor = CntlVendedor.recuperar(id);
         } else {
             dadosVendedor[0] = "0";
+            dadosVendedor[1] = "";
+            dadosVendedor[2] = "0";
+            
         }
 
         this.cmp_codigo.setText(dadosVendedor[0]);

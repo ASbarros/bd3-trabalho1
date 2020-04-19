@@ -49,23 +49,33 @@ public class CrudPedido extends javax.swing.JFrame {
         this.cmp_observação.setText(dadosPedido[2]);
         procuraCliente(Integer.parseInt(dadosPedido[3]));
         procuraVendedor(Integer.parseInt(dadosPedido[4]));
+        
+        
+        if (!cmp_codigo.equals("0")) {
+            cmp_codigo.setText(dadosPedido[0]);
+            bt_lista_produtos.setEnabled(true);
+        }
     }
 
     private void procuraCliente(int id) {
         this.jCcliente.removeAllItems();
         this.listCliente.removeAll(listCliente);
-        String[][] dados = null;
+        
 
         if (id == 0) {
-            dados = CntlCliente.recuperarTodos();
+            String[][] dados = CntlCliente.recuperarTodos();
+            for (int i = 0; i < dados.length; i++) {
+                this.jCcliente.addItem(dados[i][2]);
+                this.listCliente.add(i, Integer.parseInt(dados[i][0]));
+            }
         } else {
-            dados[0] = CntlCliente.recuperar(id);
+            
+            String[] dados = CntlCliente.recuperar(id);
+            this.jCcliente.addItem(dados[2]);
+            this.listCliente.add(Integer.parseInt(dados[0]));
+
         }
 
-        for (int i = 0; i < dados.length; i++) {
-            this.jCcliente.addItem(dados[i][2]);
-            this.listCliente.add(i, Integer.parseInt(dados[i][0]));
-        }
     }
 
     private void procuraVendedor(int id) {
@@ -73,17 +83,19 @@ public class CrudPedido extends javax.swing.JFrame {
         this.jCvendedor.removeAllItems();
         this.listVendedor.removeAll(this.listVendedor);
 
-        String[][] dados = null;
         if (id == 0) {
-            dados = CntlVendedor.recuperarTodos();
-        } else {
-            dados[0] = CntlVendedor.recuperar(id);
-        }
-
-        for (int i = 0; i < dados.length; i++) {
+            String[][] dados = CntlVendedor.recuperarTodos();
+            for (int i = 0; i < dados.length; i++) {
             this.jCvendedor.addItem(dados[i][1]);
             this.listVendedor.add(i, Integer.parseInt(dados[i][0]));
         }
+        } else {
+            String[] dados = CntlVendedor.recuperar(id);
+            this.jCvendedor.addItem(dados[1]);
+            this.listVendedor.add(Integer.parseInt(dados[0]));
+        }
+
+        
     }
 
     /**
@@ -305,6 +317,7 @@ public class CrudPedido extends javax.swing.JFrame {
         });
 
         bt_lista_produtos.setText("Lista de produtos");
+        bt_lista_produtos.setEnabled(false);
         bt_lista_produtos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_lista_produtosActionPerformed(evt);
@@ -373,6 +386,12 @@ public class CrudPedido extends javax.swing.JFrame {
         dadosPedido[4] = String.valueOf(this.listVendedor.get(jCvendedor.getSelectedIndex()));
 
         CntlPedido.salvar(dadosPedido);
+        dadosPedido = CntlPedido.recuperar(Integer.parseInt(CntlPedido.recuperarUltimo()));
+        if ("0" != dadosPedido[0]) {
+            cmp_codigo.setText(dadosPedido[0]);
+            bt_lista_produtos.setEnabled(true);
+        }
+
     }//GEN-LAST:event_bt_salvarActionPerformed
 
     private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
@@ -388,12 +407,12 @@ public class CrudPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_cancelarActionPerformed
 
     private void bt_lista_produtosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_lista_produtosActionPerformed
-        CrudListaProduto viewListaProduto = new CrudListaProduto();
+        CrudListaProduto viewListaProduto = new CrudListaProduto(Integer.parseInt(cmp_codigo.getText()));
         viewListaProduto.setVisible(true);
     }//GEN-LAST:event_bt_lista_produtosActionPerformed
 
     private void bt_add_vendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_add_vendedorActionPerformed
-        CrudVendedor viewVendedor = new CrudVendedor(0);
+        CrudVendedor viewVendedor = new CrudVendedor();
         viewVendedor.setVisible(true);
     }//GEN-LAST:event_bt_add_vendedorActionPerformed
 

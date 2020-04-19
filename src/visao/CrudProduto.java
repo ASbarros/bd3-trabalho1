@@ -111,9 +111,10 @@ public class CrudProduto extends javax.swing.JFrame {
                 .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cmp_descricao)
                     .addComponent(cmp_saldo)
-                    .addComponent(cmp_codigo, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(cmp_codigo)
                     .addComponent(cmp_unidade)
-                    .addComponent(cmp_preco)))
+                    .addComponent(cmp_preco, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         pn_dadosLayout.setVerticalGroup(
             pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

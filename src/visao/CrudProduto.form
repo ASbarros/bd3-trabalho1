@@ -113,10 +113,11 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="cmp_descricao" alignment="0" max="32767" attributes="0"/>
                       <Component id="cmp_saldo" alignment="0" max="32767" attributes="0"/>
-                      <Component id="cmp_codigo" alignment="0" pref="200" max="32767" attributes="0"/>
+                      <Component id="cmp_codigo" alignment="0" max="32767" attributes="0"/>
                       <Component id="cmp_unidade" max="32767" attributes="0"/>
-                      <Component id="cmp_preco" alignment="0" max="32767" attributes="0"/>
+                      <Component id="cmp_preco" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

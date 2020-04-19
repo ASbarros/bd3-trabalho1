@@ -14,7 +14,9 @@ import java.util.ArrayList;
  */
 public class CrudListaProduto extends javax.swing.JFrame {
 
+    
     String[] dadosPedido = new String[6];
+    
     private final ArrayList<Integer> listaProduto = new ArrayList<>();
 
     /**
@@ -27,7 +29,11 @@ public class CrudListaProduto extends javax.swing.JFrame {
 
     public CrudListaProduto(int id) {
         initComponents();
-        procuraProduto(id);
+        
+       dadosPedido = CntlPedidoProduto.recuperar(id);
+        
+        
+        procuraProduto(0);
 
     }
 
