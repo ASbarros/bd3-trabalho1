@@ -14,9 +14,8 @@ import java.util.ArrayList;
  */
 public class CrudListaProduto extends javax.swing.JFrame {
 
-    
     String[] dadosPedido = new String[6];
-    
+
     private final ArrayList<Integer> listaProduto = new ArrayList<>();
 
     /**
@@ -29,10 +28,15 @@ public class CrudListaProduto extends javax.swing.JFrame {
 
     public CrudListaProduto(int id) {
         initComponents();
-        
-       dadosPedido = CntlPedidoProduto.recuperar(id);
-        
-        
+
+        try {
+            dadosPedido = CntlPedido.recuperar(id);
+            cmp_pedido.setText(String.valueOf(id));
+            cmp_data.setText(dadosPedido[1]);
+        } catch (Exception e) {
+            System.out.println("sem dados no pedido_produto. erro: " + e.getMessage());
+        }
+
         procuraProduto(0);
 
     }
@@ -44,13 +48,13 @@ public class CrudListaProduto extends javax.swing.JFrame {
         String[][] dados = null;
 
         if (id == 0) {
-            dados = CntlPedidoProduto.recuperarTodos();
+            dados = CntlProduto.recuperarTodos();
         } else {
-            dados[0] = CntlPedidoProduto.recuperar(id);
+            dados[0] = CntlProduto.recuperar(id);
         }
-
         for (int i = 0; i < dados.length; i++) {
-            String[] dadosProduto = CntlProduto.recuperar(Integer.parseInt(dados[i][1]));
+            String[] dadosProduto = CntlProduto.recuperar(Integer.parseInt(dados[i][0]));
+
             cb_produto.addItem(dadosProduto[1]);
             listaProduto.add(i, Integer.parseInt(dadosProduto[0]));
         }
@@ -146,13 +150,14 @@ public class CrudListaProduto extends javax.swing.JFrame {
             pn_botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_botaoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pn_botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_excluir)
-                    .addComponent(bt_cancelar)
+                .addGroup(pn_botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pn_botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txt_total_pedido)
                         .addComponent(cmp_total_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(bt_salvar)))
+                        .addComponent(bt_salvar))
+                    .addGroup(pn_botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bt_excluir)
+                        .addComponent(bt_cancelar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -171,6 +176,11 @@ public class CrudListaProduto extends javax.swing.JFrame {
         txt_produto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_produto.setText("PRODUTO");
 
+        cb_produto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_produtoItemStateChanged(evt);
+            }
+        });
         cb_produto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_produtoActionPerformed(evt);
@@ -186,7 +196,6 @@ public class CrudListaProduto extends javax.swing.JFrame {
         txt_quantidade.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_quantidade.setText("QUANTIDADE");
 
-        cmp_quantidade.setBackground(new java.awt.Color(255, 255, 255));
         cmp_quantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmp_quantidadeActionPerformed(evt);
@@ -356,6 +365,15 @@ public class CrudListaProduto extends javax.swing.JFrame {
     private void cb_produtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_produtoActionPerformed
         procuraProduto(0);
     }//GEN-LAST:event_cb_produtoActionPerformed
+
+    private void cb_produtoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_produtoItemStateChanged
+        // TODO add your handling code here:
+        try {
+            System.out.println(cb_produto.getSelectedIndex());
+        } catch (Exception e) {
+        }
+
+    }//GEN-LAST:event_cb_produtoItemStateChanged
 
     /**
      * @param args the command line arguments

@@ -115,7 +115,7 @@ public class DaoProduto {
             PreparedStatement stp = minhaConexao.prepareStatement(sql);
             ResultSet resultado = stp.executeQuery();
 
-            if (resultado.next()) {
+            while (resultado.next()) {
                 MdlProduto obj = new MdlProduto();
                 obj.setId(Integer.parseInt(resultado.getString("id_prod")));
                 obj.setDescricao(resultado.getString("descricao_prod"));

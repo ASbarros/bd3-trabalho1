@@ -49,8 +49,7 @@ public class CrudPedido extends javax.swing.JFrame {
         this.cmp_observação.setText(dadosPedido[2]);
         procuraCliente(Integer.parseInt(dadosPedido[3]));
         procuraVendedor(Integer.parseInt(dadosPedido[4]));
-        
-        
+
         if (!cmp_codigo.equals("0")) {
             cmp_codigo.setText(dadosPedido[0]);
             bt_lista_produtos.setEnabled(true);
@@ -60,7 +59,6 @@ public class CrudPedido extends javax.swing.JFrame {
     private void procuraCliente(int id) {
         this.jCcliente.removeAllItems();
         this.listCliente.removeAll(listCliente);
-        
 
         if (id == 0) {
             String[][] dados = CntlCliente.recuperarTodos();
@@ -69,7 +67,7 @@ public class CrudPedido extends javax.swing.JFrame {
                 this.listCliente.add(i, Integer.parseInt(dados[i][0]));
             }
         } else {
-            
+
             String[] dados = CntlCliente.recuperar(id);
             this.jCcliente.addItem(dados[2]);
             this.listCliente.add(Integer.parseInt(dados[0]));
@@ -86,16 +84,15 @@ public class CrudPedido extends javax.swing.JFrame {
         if (id == 0) {
             String[][] dados = CntlVendedor.recuperarTodos();
             for (int i = 0; i < dados.length; i++) {
-            this.jCvendedor.addItem(dados[i][1]);
-            this.listVendedor.add(i, Integer.parseInt(dados[i][0]));
-        }
+                this.jCvendedor.addItem(dados[i][1]);
+                this.listVendedor.add(i, Integer.parseInt(dados[i][0]));
+            }
         } else {
             String[] dados = CntlVendedor.recuperar(id);
             this.jCvendedor.addItem(dados[1]);
             this.listVendedor.add(Integer.parseInt(dados[0]));
         }
 
-        
     }
 
     /**
