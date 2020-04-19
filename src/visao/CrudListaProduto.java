@@ -16,24 +16,25 @@ public class CrudListaProduto extends javax.swing.JFrame {
 
     String[] dadosPedido = new String[6];
     private final ArrayList<Integer> listaProduto = new ArrayList<>();
-    
+
     /**
      * Creates new form CrudListaProduto
      */
     public CrudListaProduto() {
         initComponents();
+        procuraProduto(0);
     }
-    
+
     public CrudListaProduto(int id) {
         initComponents();
         procuraProduto(id);
-        
+
     }
 
     private void procuraProduto(int id) {
         cb_produto.removeAllItems();
         listaProduto.removeAll(listaProduto);
-        
+
         String[][] dados = null;
 
         if (id == 0) {
@@ -48,7 +49,6 @@ public class CrudListaProduto extends javax.swing.JFrame {
             listaProduto.add(i, Integer.parseInt(dadosProduto[0]));
         }
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.

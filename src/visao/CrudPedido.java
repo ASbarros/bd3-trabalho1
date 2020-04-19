@@ -147,6 +147,11 @@ public class CrudPedido extends javax.swing.JFrame {
 
         jLabel2.setText("CLIENTE");
 
+        jCvendedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCvendedorMouseClicked(evt);
+            }
+        });
         jCvendedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCvendedorActionPerformed(evt);
@@ -408,12 +413,17 @@ public class CrudPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_editar_clienteActionPerformed
 
     private void jCvendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCvendedorActionPerformed
-        procuraVendedor(0);
+        //
     }//GEN-LAST:event_jCvendedorActionPerformed
 
     private void jCclienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCclienteMouseClicked
         procuraCliente(0);
     }//GEN-LAST:event_jCclienteMouseClicked
+
+    private void jCvendedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCvendedorMouseClicked
+        // TODO add your handling code here:
+        procuraVendedor(0);
+    }//GEN-LAST:event_jCvendedorMouseClicked
 
     /**
      * @param args the command line arguments
