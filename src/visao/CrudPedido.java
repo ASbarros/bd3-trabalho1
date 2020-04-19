@@ -26,11 +26,11 @@ public class CrudPedido extends javax.swing.JFrame {
     }
 
     public CrudPedido(int id) {
-initComponents();
+        initComponents();
 
         if (id != 0) {
             dadosPedido = CntlPedido.recuperar(id);
-            
+
         } else {
             Calendar data = Calendar.getInstance();
             Date dataCalendar = data.getTime();
@@ -43,7 +43,7 @@ initComponents();
             dadosPedido[3] = "0";
             dadosPedido[4] = "0";
         }
-        
+
         this.cmp_codigo.setText(dadosPedido[0]);
         this.cmp_data.setText(dadosPedido[1]);
         this.cmp_observação.setText(dadosPedido[2]);
@@ -260,11 +260,12 @@ initComponents();
                             .addGroup(pn_dadosLayout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(11, 11, 11)))
-                        .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bt_add_vendedor)
-                            .addComponent(bt_editar_vendedor)
+                        .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCvendedor)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pn_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(bt_add_vendedor)
+                                .addComponent(bt_editar_vendedor)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(6, 6, 6))
                     .addGroup(pn_dadosLayout.createSequentialGroup()
                         .addComponent(jCcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)

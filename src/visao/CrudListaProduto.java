@@ -5,12 +5,18 @@
  */
 package visao;
 
+import control.*;
+import java.util.ArrayList;
+
 /**
  *
  * @author andre
  */
 public class CrudListaProduto extends javax.swing.JFrame {
 
+    String[] dadosPedido = new String[6];
+    private final ArrayList<Integer> listaProduto = new ArrayList<>();
+    
     /**
      * Creates new form CrudListaProduto
      */
@@ -20,7 +26,29 @@ public class CrudListaProduto extends javax.swing.JFrame {
     
     public CrudListaProduto(int id) {
         initComponents();
+        procuraProduto(id);
+        
     }
+
+    private void procuraProduto(int id) {
+        cb_produto.removeAllItems();
+        listaProduto.removeAll(listaProduto);
+        
+        String[][] dados = null;
+
+        if (id == 0) {
+            dados = CntlPedidoProduto.recuperarTodos();
+        } else {
+            dados[0] = CntlPedidoProduto.recuperar(id);
+        }
+
+        for (int i = 0; i < dados.length; i++) {
+            String[] dadosProduto = CntlProduto.recuperar(Integer.parseInt(dados[i][1]));
+            cb_produto.addItem(dadosProduto[1]);
+            listaProduto.add(i, Integer.parseInt(dadosProduto[0]));
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,25 +110,10 @@ public class CrudListaProduto extends javax.swing.JFrame {
         pn_botao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         bt_salvar.setText("SALVAR");
-        bt_salvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_salvarActionPerformed(evt);
-            }
-        });
 
         bt_excluir.setText("EXCLUIR");
-        bt_excluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_excluirActionPerformed(evt);
-            }
-        });
 
         bt_cancelar.setText("CANCELAR");
-        bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_cancelarActionPerformed(evt);
-            }
-        });
 
         txt_total_pedido.setText("TOTAL DO PEDIDO");
 
@@ -152,6 +165,12 @@ public class CrudListaProduto extends javax.swing.JFrame {
         txt_produto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_produto.setText("PRODUTO");
 
+        cb_produto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_produtoActionPerformed(evt);
+            }
+        });
+
         txt_unitario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_unitario.setText("VALOR UNITARIO");
 
@@ -161,7 +180,6 @@ public class CrudListaProduto extends javax.swing.JFrame {
         txt_quantidade.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_quantidade.setText("QUANTIDADE");
 
-        cmp_quantidade.setEditable(false);
         cmp_quantidade.setBackground(new java.awt.Color(255, 255, 255));
         cmp_quantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -325,21 +343,13 @@ public class CrudListaProduto extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bt_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salvarActionPerformed
-        
-    }//GEN-LAST:event_bt_salvarActionPerformed
-
-    private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
-        
-    }//GEN-LAST:event_bt_excluirActionPerformed
-
-    private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
-        
-    }//GEN-LAST:event_bt_cancelarActionPerformed
-
     private void cmp_quantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmp_quantidadeActionPerformed
         cmp_total.setText(String.valueOf(Double.valueOf(cmp_unitario.getText()) * Double.valueOf(cmp_quantidade.getText())));
     }//GEN-LAST:event_cmp_quantidadeActionPerformed
+
+    private void cb_produtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_produtoActionPerformed
+        procuraProduto(0);
+    }//GEN-LAST:event_cb_produtoActionPerformed
 
     /**
      * @param args the command line arguments

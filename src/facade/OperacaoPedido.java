@@ -4,7 +4,6 @@ import control.*;
 import dao.*;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -75,7 +74,6 @@ public class OperacaoPedido {
                 minhaConexao.rollback();
                 minhaConexao.close();
             } catch (SQLException ex) {
-                System.out.println("erro aqui: ");
                 Logger.getLogger(OperacaoPedido.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -124,18 +122,18 @@ public class OperacaoPedido {
             //Atualiza a ultima compra
             String[] cliente = CntlCliente.recuperar(Integer.valueOf(dadosPedido[3]));//dados do cliente
             cliente[3] = CntlPedido.recuperarUltimo(Integer.valueOf(cliente[0]));//altera da data
+            
             CntlCliente.salvar(cliente);//salva a data
             
             //Finaliza o processo de gravar
             minhaConexao.commit();
             minhaConexao.close();
         } catch (SQLException e) {
-            System.out.println("erro ao gravar pedido: " + e.getMessage());
+            System.out.println("erro ao excluir pedido: " + e.getMessage());
             try {
                 minhaConexao.rollback();
                 minhaConexao.close();
             } catch (SQLException ex) {
-                System.out.println("erro aqui:");
                 Logger.getLogger(OperacaoPedido.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
