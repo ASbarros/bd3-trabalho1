@@ -23,14 +23,20 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="pn_botao" alignment="1" max="32767" attributes="0"/>
-                  <Component id="pn_dados" alignment="0" max="32767" attributes="0"/>
-                  <Component id="pn_titulo" alignment="0" max="32767" attributes="0"/>
+                  <Component id="pn_titulo" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="pn_dados" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="pn_botao" max="32767" attributes="0"/>
+                          <Component id="tb_compra" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -39,10 +45,15 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="pn_titulo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="pn_dados" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="pn_botao" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="tb_compra" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="pn_botao" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="pn_dados" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -81,7 +92,7 @@
               <Font name="Tahoma" size="20" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="CADASTRO DE CLIENTE"/>
+            <Property name="text" type="java.lang.String" value="ITENS DO PEDIDO"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -99,13 +110,17 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="bt_salvar" min="-2" pref="90" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Component id="bt_excluir" min="-2" pref="90" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="bt_cancelar" min="-2" pref="90" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="bt_cancelar" min="-2" pref="90" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="bt_excluir" min="-2" pref="90" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="bt_salvar" min="-2" pref="90" max="-2" attributes="0"/>
+                  <EmptySpace pref="11" max="32767" attributes="0"/>
+                  <Component id="txt_total_pedido" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="cmp_total_pedido" min="-2" pref="73" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -114,11 +129,15 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="bt_salvar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="bt_excluir" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="bt_cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                          <Component id="txt_total_pedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmp_total_pedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="bt_salvar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -148,6 +167,16 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_cancelarActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JLabel" name="txt_total_pedido">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="TOTAL DO PEDIDO"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="cmp_total_pedido">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="pn_dados">
@@ -162,26 +191,22 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txt_cpf" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txt_nome" alignment="0" pref="45" max="32767" attributes="0"/>
+                      <Component id="pn_dados_produto" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="txt_pedido" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="cmp_pedido" min="-2" pref="52" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="txt_data" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cmp_data" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="txt_codigo" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txt_ultimaCompra" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="bt_incluir" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="cmp_nome" alignment="0" pref="200" max="32767" attributes="0"/>
-                          <Component id="cmp_codigo" alignment="0" pref="200" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="cmp_cpf" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                      <Component id="cmp_ultimaCompra" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -190,67 +215,217 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txt_codigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cmp_codigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_pedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmp_pedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_data" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmp_data" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cmp_nome" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txt_nome" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="pn_dados_produto" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="7" max="32767" attributes="0"/>
+                  <Component id="bt_incluir" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="cmp_cpf" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txt_cpf" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cmp_ultimaCompra" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txt_ultimaCompra" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="51" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="cmp_codigo">
+        <Component class="javax.swing.JLabel" name="txt_pedido">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="PEDIDO N&#xb0;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="cmp_pedido">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="txt_data">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="DATA DO PEDIDO"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="cmp_data">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JPanel" name="pn_dados_produto">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder justification="2" title="DADOS DO PRODUTO"/>
+              </Border>
             </Property>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="txt_codigo">
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cmp_unitario" max="32767" attributes="0"/>
+                                  <Component id="txt_unitario" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txt_quantidade" max="32767" attributes="0"/>
+                                  <Component id="cmp_quantidade" min="-2" pref="76" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="cmp_total" max="32767" attributes="0"/>
+                                  <Component id="txt_total" min="-2" pref="119" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="cb_produto" max="32767" attributes="0"/>
+                          <Component id="txt_produto" alignment="1" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txt_produto" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cb_produto" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txt_unitario" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_quantidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_total" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="cmp_unitario" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="cmp_quantidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmp_total" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="txt_produto">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="PRODUTO"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cb_produto">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="txt_unitario">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="VALOR UNITARIO"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="cmp_unitario">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="txt_quantidade">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="QUANTIDADE"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="cmp_quantidade">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmp_quantidadeActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="txt_total">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="VALOR TOTAL"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="cmp_total">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JButton" name="bt_incluir">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CODIGO:"/>
+            <Property name="text" type="java.lang.String" value="INCLUIR NO PEDIDO"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="txt_nome">
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="tb_compra">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="jTable2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="NOME:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="cmp_nome">
-        </Component>
-        <Component class="javax.swing.JLabel" name="txt_cpf">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="CPF:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="cmp_cpf">
-        </Component>
-        <Component class="javax.swing.JLabel" name="txt_ultimaCompra">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="ULTIMA COMPRA:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="cmp_ultimaCompra">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="4" rowCount="0">
+                <Column editable="false" title="PRODUTO" type="java.lang.String"/>
+                <Column editable="false" title="VALOR UNIT." type="java.lang.Double"/>
+                <Column editable="false" title="QUANT." type="java.lang.Double"/>
+                <Column editable="false" title="TOTAL" type="java.lang.Double"/>
+              </Table>
+            </Property>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="25" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+              </TableColumnModel>
+            </Property>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
         </Component>
