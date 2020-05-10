@@ -1,12 +1,39 @@
 package model;
 
-public class MdlProduto {
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+@Entity
+public class MdlProduto implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     private String descricao;
+    @Column
     private double saldo;
+    @Column
     private String unidade;
+    @Column
     private double valor;
+
+    @OneToMany
+    private List<MdlProdutoMovimento> produtoMovimentos;
+
+    public List<MdlProdutoMovimento> getProdutoMovimentos() {
+        return produtoMovimentos;
+    }
+
+    public void setProdutoMovimentos(List<MdlProdutoMovimento> produtoMovimentos) {
+        this.produtoMovimentos = produtoMovimentos;
+    }
 
     public MdlProduto() {
     }
@@ -34,7 +61,7 @@ public class MdlProduto {
         produto.setSaldo(Double.parseDouble(dados[2]));
         produto.setUnidade(dados[3]);
         produto.setValor(Double.parseDouble(dados[4]));
-        
+
         return produto;
     }
 

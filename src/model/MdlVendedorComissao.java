@@ -2,13 +2,26 @@ package model;
 
 import dao.DaoPedido;
 import dao.DaoVendedor;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class MdlVendedorComissao {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     private double percentual;
+    @Column
     private double valor;
+    @ManyToOne
     private MdlVendedor vendedor;
+    @ManyToOne
     private MdlPedido pedido;
 
     public MdlVendedorComissao() {

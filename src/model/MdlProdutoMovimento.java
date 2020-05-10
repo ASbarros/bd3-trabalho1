@@ -4,13 +4,26 @@ import dao.DaoProduto;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class MdlProdutoMovimento {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     private String tipo;
+    @Column
     private String data;
+    @Column
     private String descricao;
+    @ManyToOne
     private MdlProduto produto;
 
     public MdlProdutoMovimento() {
@@ -78,7 +91,7 @@ public class MdlProdutoMovimento {
     public void setData(String data) {
         this.data = data;
     }
-    
+
     public void setData(Date data) {
         this.data = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(data);
     }

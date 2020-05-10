@@ -2,12 +2,23 @@ package model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class MdlCliente {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     private String nome;
+    @Column
     private String cpf;
+    @Column
     private String ultimaCompra;
 
     //construtores
