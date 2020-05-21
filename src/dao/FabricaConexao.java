@@ -5,10 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 
 public class FabricaConexao {
-
+/*
     private static final String STR_DRIVER = "org.gjt.mm.mysql.Driver";  // definição de qual banco será utilizado
     private static final String DATABASE = "bancosaulo"; // Nome do banco de dados         
     private static final String IP = "localhost";  // ip de conexao
@@ -47,5 +50,37 @@ public class FabricaConexao {
         }
         return cnx;
     }
+*/
+    
+    
+    private static EntityManager gerenciador;
+    private static EntityManagerFactory fabrica;
 
+    public FabricaConexao() {
+        try{
+        fabrica = Persistence.createEntityManagerFactory("bd3_trabalho1PU");
+        gerenciador = fabrica.createEntityManager();
+        //gerenciador.getTransaction().begin();
+        }catch(Exception e){
+            System.err.println("ERRO NA CONSTRUÇÃO DA CONEXÃO: " + e);
+        }
+    }
+
+    public static EntityManager getConexaoPADRAO() {
+        return gerenciador;
+    }
+
+    public static EntityManager getConexaoCUSTOMIZADA() {
+        EntityManagerFactory fabricaCustomizada = Persistence.createEntityManagerFactory("remoto7PU");
+        EntityManager gerenciadorCostomizado = fabricaCustomizada.createEntityManager();
+        gerenciadorCostomizado.getTransaction().begin();
+        return gerenciadorCostomizado;
+    }
+
+    public static void fechaConexão() {
+        gerenciador.close();
+    }
+    public static void fechaFabrica() {
+        fabrica.close();
+    }
 }

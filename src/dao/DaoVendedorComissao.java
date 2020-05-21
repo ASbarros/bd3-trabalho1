@@ -8,17 +8,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
 import model.MdlVendedorComissao;
 
 public class DaoVendedorComissao {
 
-    private Connection minhaConexao;
+    private EntityManager minhaConexao;
 
     public DaoVendedorComissao() {
         minhaConexao = FabricaConexao.getConexaoPADRAO();
     }
 
-    public DaoVendedorComissao(Connection cnx) {
+    public DaoVendedorComissao(EntityManager cnx) {
         minhaConexao = cnx;
     }
 
