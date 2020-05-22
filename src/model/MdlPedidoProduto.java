@@ -2,6 +2,7 @@ package model;
 
 import dao.DaoProduto;
 import dao.DaoPedido;
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,16 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class MdlPedidoProduto {
+public class MdlPedidoProduto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
     private double quantidade;
-    @Column
     private double valor;
-    @Column
     private double total;
     @ManyToOne
     private MdlProduto produto;

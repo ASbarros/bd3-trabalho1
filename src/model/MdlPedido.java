@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class MdlPedido {
@@ -17,12 +18,11 @@ public class MdlPedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
     private String data;
-    @Column
     private String observacao;
     @ManyToOne
     private MdlCliente cliente;
+    
     @ManyToOne
     private MdlVendedor vendedor;
 

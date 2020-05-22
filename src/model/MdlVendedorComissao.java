@@ -2,6 +2,7 @@ package model;
 
 import dao.DaoPedido;
 import dao.DaoVendedor;
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,16 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class MdlVendedorComissao {
+public class MdlVendedorComissao implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
     private double percentual;
-    @Column
     private double valor;
-    @ManyToOne
+    @ManyToOne 
     private MdlVendedor vendedor;
     @ManyToOne
     private MdlPedido pedido;

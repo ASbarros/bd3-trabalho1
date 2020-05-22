@@ -1,22 +1,30 @@
 package model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
-public class MdlVendedor {
+public class MdlVendedor implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
     private String nome;
-    @Column
     private double percentual;
 
+    @OneToMany (mappedBy = "vendedor")
+    private List<MdlVendedorComissao> comissoes;
+    @OneToMany (mappedBy = "vendedor")
+    private List<MdlVendedorComissao> pedidos; ;
+    
+    
     public MdlVendedor() {
     }
 
@@ -72,6 +80,22 @@ public class MdlVendedor {
 
     public void setPercentual(double percentual) {
         this.percentual = percentual;
+    }
+
+    public List<MdlVendedorComissao> getComissoes() {
+        return comissoes;
+    }
+
+    public void setComissoes(ArrayList<MdlVendedorComissao> comissoes) {
+        this.comissoes = comissoes;
+    }
+
+    public List<MdlVendedorComissao> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(ArrayList<MdlVendedorComissao> pedidos) {
+        this.pedidos = pedidos;
     }
 
 }

@@ -1,6 +1,7 @@
 package model;
 
 import dao.DaoProduto;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,16 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class MdlProdutoMovimento {
+public class MdlProdutoMovimento implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
     private String tipo;
-    @Column
     private String data;
-    @Column
     private String descricao;
     @ManyToOne
     private MdlProduto produto;

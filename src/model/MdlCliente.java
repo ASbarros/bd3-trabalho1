@@ -1,26 +1,27 @@
 package model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.persistence.Column;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
-public class MdlCliente {
+public class MdlCliente implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
     private String nome;
-    @Column
     private String cpf;
-    @Column
     private String ultimaCompra;
-
+    
+    @OneToMany (mappedBy = "cliente")
+    private List<MdlPedido> pedidos;
     //construtores
     //sem parametros
     public MdlCliente() {

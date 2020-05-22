@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,17 +14,24 @@ public class MdlProduto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
     private String descricao;
-    @Column
     private double saldo;
-    @Column
     private String unidade;
-    @Column
     private double valor;
 
-    @OneToMany
+    @OneToMany (mappedBy = "produto")
     private List<MdlProdutoMovimento> produtoMovimentos;
+    @OneToMany (mappedBy = "produto")
+    private List<MdlPedidoProduto> pedidoProduto;
+
+    public List<MdlPedidoProduto> getPedidoProduto() {
+        return pedidoProduto;
+    }
+
+    public void setPedidoProduto(List<MdlPedidoProduto> pedidoProduto) {
+        this.pedidoProduto = pedidoProduto;
+    }
+    
 
     public List<MdlProdutoMovimento> getProdutoMovimentos() {
         return produtoMovimentos;
