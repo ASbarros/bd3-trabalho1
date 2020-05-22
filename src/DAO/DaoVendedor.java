@@ -7,70 +7,48 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import model.MdlVendedor;
 
 public class DaoVendedor {
 
-    private Connection minhaConexao;
+    private EntityManager minhaConexao;
 
     public DaoVendedor() {
         minhaConexao = FabricaConexao.getConexaoPADRAO();
     }
 
-    public DaoVendedor(Connection cnx) {
+    public DaoVendedor(EntityManager cnx) {
         minhaConexao = cnx;
     }
 
     public void inserir(MdlVendedor vendedor) {
-        PreparedStatement comandoSQL;
-
-        String sql = "insert into vendedor (nome_vend, percentual_vend) values (?,?);";
-
         try {
-            comandoSQL = minhaConexao.prepareStatement(sql);
-
-            comandoSQL.setString(1, vendedor.getNome());
-            comandoSQL.setDouble(2, vendedor.getPercentual());
-
-            comandoSQL.executeUpdate();
-            comandoSQL.close();
-        } catch (SQLException e) {
+            minhaConexao.persist(vendedor);
+            minhaConexao.getTransaction().commit();
+        } catch (Exception e) {
+            minhaConexao.getTransaction().rollback();
             System.err.println("Erro ao incluir vendedor: " + e.getMessage());
         }
     }
 
     public void atualizar(MdlVendedor vendedor) {
-        PreparedStatement comandoSQL;
-
-        String sql = "update vendedor set nome_vend = ?, percentual_vend = ? where id_vend = ?;";
-
-        try {
-            comandoSQL = minhaConexao.prepareStatement(sql);
-
-            comandoSQL.setString(1, vendedor.getNome());
-            comandoSQL.setDouble(2, vendedor.getPercentual());
-            comandoSQL.setInt(3, vendedor.getId());
-
-            comandoSQL.executeUpdate();
-            comandoSQL.close();
-        } catch (SQLException e) {
+         try {
+            minhaConexao.persist(vendedor);
+            minhaConexao.getTransaction().commit();
+        } catch (Exception e) {
+            minhaConexao.getTransaction().rollback();
             System.err.println("Erro ao atualizar vendedor: " + e.getMessage());
         }
     }
 
     public void excluir(int pk) {
-        PreparedStatement comandoSQL;
-
-        String sql = "delete from vendedor where id_vend = ?";
-
         try {
-            comandoSQL = minhaConexao.prepareStatement(sql);
-
-            comandoSQL.setInt(1, pk);
-
-            comandoSQL.executeUpdate();
-            comandoSQL.close();
-        } catch (SQLException e) {
+            minhaConexao.remove(pk);
+            minhaConexao.getTransaction().commit();
+        } catch (Exception e) {
+            minhaConexao.getTransaction().rollback();
             System.err.println("Erro ao deletar vendedor: " + e.getMessage());
         }
     }
@@ -80,23 +58,9 @@ public class DaoVendedor {
     }
 
     public MdlVendedor recuperar(int index) {
-        String sql = "select id_vend, nome_vend, percentual_vend from vendedor where id_vend = ?";
-
         try {
-            PreparedStatement stp = minhaConexao.prepareStatement(sql);
-            stp.setInt(1, index);
-            ResultSet resultado = stp.executeQuery();
-
-            MdlVendedor obj = new MdlVendedor();
-
-            if (resultado.next()) {
-                obj.setId(Integer.parseInt(resultado.getString("id_vend")));
-                obj.setNome(resultado.getString("nome_vend"));
-                obj.setPercentual(resultado.getDouble("percentual_vend"));
-            }
-            return obj;
-
-        } catch (SQLException ex) {
+            return minhaConexao.find(MdlVendedor.class, index);
+        } catch (Exception ex) {
             Logger.getLogger(MdlVendedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -104,23 +68,19 @@ public class DaoVendedor {
 
     public ArrayList<MdlVendedor> recuperarTodos() {
         String sql = "select id_vend, nome_vend, percentual_vend from vendedor";
-        ArrayList<MdlVendedor> lista = new ArrayList();
+        return recuperar(sql);
+    }
+    
+    public ArrayList<MdlVendedor> recuperar(String SQL) {
+        ArrayList<MdlVendedor> ListaCliente = new ArrayList<>();
         try {
-            PreparedStatement stp = minhaConexao.prepareStatement(sql);
-            ResultSet resultado = stp.executeQuery();
-
-            while (resultado.next()) {
-                MdlVendedor obj = new MdlVendedor();
-                obj.setId(Integer.parseInt(resultado.getString("id_vend")));
-                obj.setNome(resultado.getString("nome_vend"));
-                obj.setPercentual(resultado.getDouble("percentual_vend"));
-                lista.add(obj);
-            }
-            return lista;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(MdlVendedor.class.getName()).log(Level.SEVERE, null, ex);
+            Query minhaQuery = minhaConexao.createQuery(SQL);
+            ListaCliente = (ArrayList<MdlVendedor>) minhaQuery.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro ao recuperar conta: " + e);
+            minhaConexao.getTransaction().rollback();
         }
-        return null;
+        minhaConexao.getTransaction().commit();
+        return ListaCliente;
     }
 }

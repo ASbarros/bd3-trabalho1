@@ -30,6 +30,7 @@ public class DaoCliente {
             minhaConexao.persist(cliente);
             minhaConexao.getTransaction().commit();
         } catch (Exception e) {
+            minhaConexao.getTransaction().rollback();
             System.err.println("Erro ao incluir cliente: " + e.getMessage());
         }
     }
@@ -39,6 +40,7 @@ public class DaoCliente {
             minhaConexao.persist(cliente);
             minhaConexao.getTransaction().commit();
         } catch (Exception e) {
+            minhaConexao.getTransaction().rollback();
             System.err.println("Erro ao atualizar cliente: " + e.getMessage());
         }
     }
@@ -47,8 +49,8 @@ public class DaoCliente {
         try {
             minhaConexao.remove(pk);
             minhaConexao.getTransaction().commit();
-
         } catch (Exception e) {
+            minhaConexao.getTransaction().rollback();
             System.err.println("Erro ao deletar cliente: " + e.getMessage());
         }
 
@@ -59,8 +61,6 @@ public class DaoCliente {
     }
 
     public MdlCliente recuperar(int index) {
-        String sql = "select c.id_cli, c.nome_cli, c.cpf_cli, c.ultcomp_cli from cliente c where c.id_cli = ?";
-
         try {
             return minhaConexao.find(MdlCliente.class, index);
         } catch (Exception ex) {
