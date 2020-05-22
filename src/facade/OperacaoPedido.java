@@ -6,11 +6,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
 
 public class OperacaoPedido {
 
     public static void gavarPedido(String codPedido, String Observacao, String idCliente, String idVendedor, String dadosPedidosProdutos[][], String dadosPedidosMovimento[][], String codComissao) {
-        Connection minhaConexao = FabricaConexao.getConexaoCUSTOMIZADA();
+        EntityManager minhaConexao = FabricaConexao.getConexaoCUSTOMIZADA();
         double totalPedido = 0;
 
         try {
@@ -23,7 +24,7 @@ public class OperacaoPedido {
             dadosPedidos[4] = idVendedor;
 
             CntlPedido.salvar(dadosPedidos);
-            
+
             dadosPedidos[0] = CntlPedido.recuperarUltimo();//atualiza o codigo do pedido
 
             // salva em pedido_produto
@@ -66,27 +67,23 @@ public class OperacaoPedido {
             CntlCliente.salvar(cliente);//salva a data
 
             //Finaliza o processo de gravar
-            minhaConexao.commit();
+            minhaConexao.getTransaction().commit();
             minhaConexao.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("erro ao gravar pedido: " + e.getMessage());
-            try {
-                minhaConexao.rollback();
-                minhaConexao.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(OperacaoPedido.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            minhaConexao.getTransaction().rollback();
+            minhaConexao.close();
         }
     }
 
     public static void excluir(String codPedido, String dadosPedidosProdutos[][], String dadosPedidosMovimento[][], String codComissao) {
-        Connection minhaConexao = FabricaConexao.getConexaoCUSTOMIZADA();
+        EntityManager minhaConexao = FabricaConexao.getConexaoCUSTOMIZADA();
         String[] produtoMovimento = CntlProdutoMovimento.recuperar(Integer.parseInt(dadosPedidosMovimento[0][0]));//recupera movimento para exemplo
-        
+
         try {
             //recupera os dados dos pedidos
             String dadosPedido[] = CntlPedido.recuperar(Integer.parseInt(codPedido));
-            
+
             //exclui os registros de produto movimento
             for (String[] dadosPedidosMovimento1 : dadosPedidosMovimento) {
                 CntlProdutoMovimento.deletar(Integer.parseInt(dadosPedidosMovimento1[0]));
@@ -110,32 +107,28 @@ public class OperacaoPedido {
 
             //Exclui comissao vendedor
             CntlVendedorComissao.deletar(Integer.valueOf(codComissao));//dados da comissao do vendedor
-            
+
             //exclui do registro produtos pedido
             for (String dadosPedidosProduto[] : dadosPedidosProdutos) {
                 CntlProduto.deletar(Integer.parseInt(dadosPedidosProduto[0]));
             }
-            
+
             //exclui pedido
             CntlPedido.deletar(Integer.valueOf(dadosPedido[0]));
-            
+
             //Atualiza a ultima compra
             String[] cliente = CntlCliente.recuperar(Integer.valueOf(dadosPedido[3]));//dados do cliente
             cliente[3] = CntlPedido.recuperarUltimo(Integer.valueOf(cliente[0]));//altera da data
-            
+
             CntlCliente.salvar(cliente);//salva a data
-            
+
             //Finaliza o processo de gravar
-            minhaConexao.commit();
+                minhaConexao.getTransaction().commit();
             minhaConexao.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("erro ao excluir pedido: " + e.getMessage());
-            try {
-                minhaConexao.rollback();
-                minhaConexao.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(OperacaoPedido.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            minhaConexao.getTransaction().rollback();
+            minhaConexao.close();
         }
     }
 }
