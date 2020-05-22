@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -25,6 +26,7 @@ public class DaoProduto {
     }
 
     public void inserir(MdlProduto produto) {
+        minhaConexao.getTransaction().begin();
         try {
             minhaConexao.persist(produto);
             minhaConexao.getTransaction().commit();
@@ -32,6 +34,7 @@ public class DaoProduto {
             minhaConexao.getTransaction().rollback();
             System.err.println("Erro ao incluir produto: " + e.getMessage());
         }
+        minhaConexao.close();
     }
 
     public void atualizar(MdlProduto produto) {
@@ -45,13 +48,15 @@ public class DaoProduto {
     }
 
     public void excluir(int pk) {
+        minhaConexao.getTransaction().begin();
         try {
-            minhaConexao.remove(pk);
+            minhaConexao.remove(this.recuperar(pk));
             minhaConexao.getTransaction().commit();
         } catch (Exception e) {
             minhaConexao.getTransaction().rollback();
             System.err.println("Erro ao deletar produto: " + e.getMessage());
         }
+        minhaConexao.close();
     }
 
     public void excluir(MdlProduto produto) {
@@ -60,7 +65,7 @@ public class DaoProduto {
 
     public MdlProduto recuperar(int index) {
         try {
-            minhaConexao.find(MdlProduto.class, index);
+            return minhaConexao.find(MdlProduto.class, index);
         } catch (Exception e) {
             Logger.getLogger(MdlProduto.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -68,15 +73,25 @@ public class DaoProduto {
     }
 
     public ArrayList<MdlProduto> recuperarTodos() {
-        String sql = "select id_prod, descricao_prod, saldo_prod, unidade_prod, valor_prod from produto";
+        String sql = "select p.id, p.descricao, p.saldo, p.unidade, p.valor from MdlProduto p";
         return recuperar(sql);
     }
-    
+
     public ArrayList<MdlProduto> recuperar(String SQL) {
         ArrayList<MdlProduto> ListaCliente = new ArrayList<>();
+        minhaConexao.getTransaction().begin();
         try {
             Query minhaQuery = minhaConexao.createQuery(SQL);
-            ListaCliente = (ArrayList<MdlProduto>) minhaQuery.getResultList();
+            List<Object[]> retornoBD = minhaQuery.getResultList();
+            retornoBD.stream().map((objects) -> {
+                MdlProduto obj = new MdlProduto();
+                obj.setId(Integer.parseInt(objects[0].toString()));
+                obj.setDescricao(objects[1].toString());
+                obj.setSaldo(Double.parseDouble(objects[2].toString()));
+                obj.setUnidade(objects[3].toString());
+                obj.setValor(Double.parseDouble(objects[4].toString()));
+                return obj;
+            }).forEachOrdered(ListaCliente::add);
         } catch (Exception e) {
             System.out.println("Erro ao recuperar produto: " + e);
             minhaConexao.getTransaction().rollback();

@@ -23,6 +23,7 @@ public class CrudPedido extends javax.swing.JFrame {
         initComponents();
         procuraCliente(0);
         procuraVendedor(0);
+        dadosPedido[0] = "0";
     }
 
     public CrudPedido(int id) {
@@ -384,7 +385,7 @@ public class CrudPedido extends javax.swing.JFrame {
 
         CntlPedido.salvar(dadosPedido);
         dadosPedido = CntlPedido.recuperar(Integer.parseInt(CntlPedido.recuperarUltimo()));
-        if ("0" != dadosPedido[0]) {
+        if (!dadosPedido[0].equals("0")) {
             cmp_codigo.setText(dadosPedido[0]);
             bt_lista_produtos.setEnabled(true);
         }

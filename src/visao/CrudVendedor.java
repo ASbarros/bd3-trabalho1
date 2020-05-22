@@ -13,6 +13,7 @@ public class CrudVendedor extends javax.swing.JFrame {
 
     public CrudVendedor() {
         initComponents();
+        dadosVendedor[0] = "0";
     }
 
     public CrudVendedor(int id) {
@@ -23,12 +24,12 @@ public class CrudVendedor extends javax.swing.JFrame {
             dadosVendedor[0] = "0";
             dadosVendedor[1] = "";
             dadosVendedor[2] = "0";
-            
+
         }
 
         this.cmp_codigo.setText(dadosVendedor[0]);
         this.cmp_nome.setText(dadosVendedor[1]);
-        this.cmp_percentual.setText(String.valueOf(Double.parseDouble(dadosVendedor[2])*100));
+        this.cmp_percentual.setText(String.valueOf(Double.parseDouble(dadosVendedor[2]) * 100));
 
     }
 
@@ -201,23 +202,31 @@ public class CrudVendedor extends javax.swing.JFrame {
 
     private void bt_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salvarActionPerformed
         dadosVendedor[1] = cmp_nome.getText();
-        dadosVendedor[2] = String.valueOf(Double.parseDouble(cmp_percentual.getText())/100);
+        dadosVendedor[2] = String.valueOf(Double.parseDouble(cmp_percentual.getText()) / 100);
 
         CntlVendedor.salvar(dadosVendedor);
     }//GEN-LAST:event_bt_salvarActionPerformed
 
     private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
         CntlVendedor.deletar(Integer.parseInt(dadosVendedor[0]));
+        this.cleanFields();
     }//GEN-LAST:event_bt_excluirActionPerformed
 
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
         this.cmp_nome.setText(dadosVendedor[1]);
-        this.cmp_percentual.setText(String.valueOf(Double.parseDouble(dadosVendedor[2])*100));
+        this.cmp_percentual.setText(String.valueOf(Double.parseDouble(dadosVendedor[2]) * 100));
     }//GEN-LAST:event_bt_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    private void cleanFields() {
+        this.bt_cancelar.setEnabled(false);
+        this.cmp_codigo.setText("");
+        this.cmp_nome.setText("");
+        this.cmp_percentual.setText("");
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

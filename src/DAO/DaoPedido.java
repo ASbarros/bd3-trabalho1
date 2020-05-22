@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -27,6 +28,7 @@ public class DaoPedido {
 
     public void inserir(MdlPedido pedido) {
         try {
+            minhaConexao.getTransaction().begin();
             minhaConexao.persist(pedido);
             minhaConexao.getTransaction().commit();
         } catch (Exception e) {
@@ -61,10 +63,13 @@ public class DaoPedido {
     }
 
     public MdlPedido recuperar(int index) {
-        String sql = "select p.id_ped, p.data_ped, p.observacao_pedido, p.id_cli_ped, p.id_vend_ped from pedido p where p.id_ped = ?";
+        String sql = "select p.id, p.data, p.observacao, p.cliente_id, p.vendedor_id from pedido p where p.id = ?";
 
         try {
-            return minhaConexao.find(MdlPedido.class, index);
+            minhaConexao.getTransaction().begin();
+            MdlPedido obj = minhaConexao.find(MdlPedido.class, index);
+            minhaConexao.getTransaction().commit();
+            return obj;
         } catch (Exception ex) {
             Logger.getLogger(MdlPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -91,12 +96,15 @@ public class DaoPedido {
     }
 
     public String recuperarUltimo() {
-        String sql = "select max(p.id_ped) as id_ped from p.pedido p";
+        String sql = "select max(p.id) as id from MdlPedido p";
         try {
+            MdlPedido obj = new MdlPedido();
             Query minhaQuery = minhaConexao.createQuery(sql);
-            ArrayList<MdlPedido> lista = (ArrayList<MdlPedido>) minhaQuery.getResultList();
-            return lista.toString();
-        } catch (Exception e) {
+            //Object[] retornoBD = minhaQuery.getSingleResult();
+            return String.valueOf(minhaQuery.getSingleResult());
+            // obj.setId(Integer.parseInt(objects[0]);
+
+        } catch (NumberFormatException e) {
             System.out.println("Erro ao recuperar pedido: " + e);
         }
         return null;

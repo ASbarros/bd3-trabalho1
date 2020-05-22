@@ -11,6 +11,7 @@ public class CrudProduto extends javax.swing.JFrame {
      */
     public CrudProduto() {
         initComponents();
+        dadosProduto[0] = "0";
     }
 
     public CrudProduto(int id) {
@@ -218,7 +219,7 @@ public class CrudProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salvarActionPerformed
-        dadosProduto[0] = this.cmp_codigo.getText();
+        
         dadosProduto[1] = this.cmp_descricao.getText();
         dadosProduto[2] = this.cmp_saldo.getText();
         dadosProduto[3] = this.cmp_unidade.getText();
@@ -229,6 +230,7 @@ public class CrudProduto extends javax.swing.JFrame {
 
     private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
         CntlProduto.deletar(Integer.parseInt(dadosProduto[0]));
+        this.cleanFields();
     }//GEN-LAST:event_bt_excluirActionPerformed
 
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
@@ -271,6 +273,15 @@ public class CrudProduto extends javax.swing.JFrame {
                 new CrudProduto().setVisible(true);
             }
         });
+    }
+    
+    private void cleanFields(){
+        this.bt_cancelar.setEnabled(false);
+        this.cmp_codigo.setText("");
+        this.cmp_descricao.setText("");
+        this.cmp_preco.setText("");
+        this.cmp_saldo.setText("");
+        this.cmp_unidade.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -9,9 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-
 public class FabricaConexao {
-/*
+
+    /*
     private static final String STR_DRIVER = "org.gjt.mm.mysql.Driver";  // definição de qual banco será utilizado
     private static final String DATABASE = "bancosaulo"; // Nome do banco de dados         
     private static final String IP = "localhost";  // ip de conexao
@@ -50,18 +50,16 @@ public class FabricaConexao {
         }
         return cnx;
     }
-*/
-    
-    
-    private static EntityManager gerenciador;
-    private static EntityManagerFactory fabrica;
+     */
+    private static EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("bd3_trabalho1PU");
+    private static EntityManager gerenciador = fabrica.createEntityManager();
 
     public FabricaConexao() {
-        try{
-        fabrica = Persistence.createEntityManagerFactory("bd3_trabalho1PU");
-        gerenciador = fabrica.createEntityManager();
-        //gerenciador.getTransaction().begin();
-        }catch(Exception e){
+        try {
+            fabrica = Persistence.createEntityManagerFactory("bd3_trabalho1PU");
+            gerenciador = fabrica.createEntityManager();
+            //gerenciador.getTransaction().begin();
+        } catch (Exception e) {
             System.err.println("ERRO NA CONSTRUÇÃO DA CONEXÃO: " + e);
         }
     }
@@ -80,6 +78,7 @@ public class FabricaConexao {
     public static void fechaConexão() {
         gerenciador.close();
     }
+
     public static void fechaFabrica() {
         fabrica.close();
     }

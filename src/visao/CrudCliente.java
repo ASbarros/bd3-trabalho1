@@ -22,6 +22,7 @@ public class CrudCliente extends javax.swing.JFrame {
 
     public CrudCliente() {
         initComponents();
+        dadosCliente[0] = "0";
     }
 
     public CrudCliente(int id) {
@@ -229,6 +230,7 @@ public class CrudCliente extends javax.swing.JFrame {
 
     private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
         CntlCliente.deletar(Integer.parseInt(dadosCliente[0]));
+        this.cleanFields();
     }//GEN-LAST:event_bt_excluirActionPerformed
 
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
@@ -270,6 +272,14 @@ public class CrudCliente extends javax.swing.JFrame {
             }
         });
 
+    }
+    
+    private void cleanFields(){
+        this.bt_cancelar.setEnabled(false);
+        this.cmp_codigo.setText("");
+        this.cmp_cpf.setText("");
+        this.cmp_nome.setText("");
+        this.cmp_ultimaCompra.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
