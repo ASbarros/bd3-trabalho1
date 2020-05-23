@@ -371,6 +371,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="INCLUIR NO PEDIDO"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_incluirActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

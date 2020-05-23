@@ -7,6 +7,9 @@ package visao;
 
 import control.*;
 import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.table.DefaultTableModel;
+import model.MdlProduto;
 
 /**
  *
@@ -17,13 +20,21 @@ public class CrudListaProduto extends javax.swing.JFrame {
     String[] dadosPedido = new String[6];
 
     private final ArrayList<Integer> listaProduto = new ArrayList<>();
+    private ArrayList<String[]> produtosSelecionados = new ArrayList<>();
+
+    public void insereNaTabela(int index) {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setNumRows(0);
+        String[] dados = CntlProduto.recuperar(listaProduto.get(index));
+        model.addRow(new Object[]{dados[1]});
+    }
 
     /**
      * Creates new form CrudListaProduto
      */
     public CrudListaProduto() {
         initComponents();
-        procuraProduto(0);
+        procuraProduto();
     }
 
     public CrudListaProduto(int id) {
@@ -37,27 +48,21 @@ public class CrudListaProduto extends javax.swing.JFrame {
             System.out.println("sem dados no pedido_produto. erro: " + e.getMessage());
         }
 
-        procuraProduto(0);
+        procuraProduto();
 
     }
 
-    private void procuraProduto(int id) {
+    private void procuraProduto() {
         cb_produto.removeAllItems();
         listaProduto.removeAll(listaProduto);
 
-        String[][] dados = null;
+        String[][] dados = CntlProduto.recuperarTodos();
 
-        if (id == 0) {
-            dados = CntlProduto.recuperarTodos();
-        } else {
-            dados[0] = CntlProduto.recuperar(id);
-        }
         for (int i = 0; i < dados.length; i++) {
-            String[] dadosProduto = CntlProduto.recuperar(Integer.parseInt(dados[i][0]));
-
-            cb_produto.addItem(dadosProduto[1]);
-            listaProduto.add(i, Integer.parseInt(dadosProduto[0]));
+            this.cb_produto.addItem(dados[i][1]);
+            this.listaProduto.add(Integer.parseInt(dados[i][0]));
         }
+
     }
 
     /**
@@ -252,6 +257,11 @@ public class CrudListaProduto extends javax.swing.JFrame {
         );
 
         bt_incluir.setText("INCLUIR NO PEDIDO");
+        bt_incluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_incluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pn_dadosLayout = new javax.swing.GroupLayout(pn_dados);
         pn_dados.setLayout(pn_dadosLayout);
@@ -363,17 +373,21 @@ public class CrudListaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_cmp_quantidadeActionPerformed
 
     private void cb_produtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_produtoActionPerformed
-        procuraProduto(0);
+        procuraProduto();
     }//GEN-LAST:event_cb_produtoActionPerformed
 
     private void cb_produtoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_produtoItemStateChanged
         // TODO add your handling code here:
         try {
-            System.out.println(cb_produto.getSelectedIndex());
+            //procuraProduto();
         } catch (Exception e) {
         }
 
     }//GEN-LAST:event_cb_produtoItemStateChanged
+
+    private void bt_incluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_incluirActionPerformed
+        this.insereNaTabela(cb_produto.getSelectedIndex());
+    }//GEN-LAST:event_bt_incluirActionPerformed
 
     /**
      * @param args the command line arguments
